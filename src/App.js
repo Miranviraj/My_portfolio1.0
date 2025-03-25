@@ -18,18 +18,21 @@ import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const lightTheme = {
-  background: '#dde0e1',
+  background: 'linear-gradient(45deg,rgb(255, 0, 0),rgb(0, 4, 227))',
   color: '#000000',
   headerBackground: '#bcbfca',
   footerBackground: '#bcbfca',
   headerFontColor: '#000000',
   footerFontColor: '#000000',
-  buttonBackground: '#5f8ae0',
+  buttonBackground: 'rgb(148, 210, 248)',
   buttonFontColor: '#333',
   navButtonBackground: '#e0e0e0',
   navButtonFontColor: '#000000',
   infoBoxBackground: '#bcbfca', 
   Button1Background: '#f2f3f5',
+  textGradient: 'linear-gradient(45deg,rgb(0, 0, 0),rgb(0, 4, 227))',
+  textGradien: 'rgb(133, 180, 255),rgb(255, 255, 255),rgb(149, 190, 248))',
+  textColor:'rgb(3, 0, 67)',
 };
 
 const darkTheme = {
@@ -44,11 +47,15 @@ const darkTheme = {
   navButtonBackground: '#19203d',
   navButtonFontColor: '#ffffff',
   infoBoxBackground: '#323540', 
-  infoBoxBorderColor: '#ffffff', 
+  infoBoxBorderColor: '#ffffff',
+ textGradient: 'linear-gradient(45deg,rgb(255, 230, 0),rgb(255, 255, 255))',
+ textGradien: 'linear-gradient(45deg,rgb(9, 1, 67),rgb(0, 0, 0),rgb(4, 31, 97))',
+ textColor:'rgb(198, 243, 243)',
+
 };
 
 const AppContainer = styled.div`
-  background-color: ${(props) => props.theme.background};
+  background: ${(props) => props.theme.textGradien};
   color: ${(props) => props.theme.color};
   min-height: 100vh;
   padding: 20px;
@@ -61,6 +68,9 @@ const AppContainer = styled.div`
     padding: 5px;
   }
 `;
+
+
+
 
 const Button1 = styled.div`
   background-color: ${(props) => props.theme.Button1Background}; 
@@ -136,25 +146,6 @@ const Hamburger = styled.div`
   }
 `;
 
-const FooterContainer = styled.footer`
-  background-color: ${(props) => props.theme.footerBackground};
-  color: ${(props) => props.theme.footerFontColor};
-  padding: 20px;
-  text-align: center;
-   margin-bottom: -50px;
-  position: relative;
-  width:100%;
-  margin-left:-20px;
-  height:-20px;
-
-  @media (max-width: 768px) {
-    padding: 15px;
-  }
-
-  @media (max-width: 480px) {
-    padding: 10px;
-  }
-`;
 
 function App() {
   const [theme, setTheme] = useState(lightTheme);
@@ -203,9 +194,9 @@ function App() {
             <Route path="/projects" element={<Projects />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
-          <FooterContainer>
+          
             <Footer />
-          </FooterContainer>
+         
         </Router>
       </AppContainer>
     </ThemeProvider>

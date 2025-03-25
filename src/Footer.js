@@ -5,11 +5,13 @@ const FooterContainer = styled.footer`
   background-color: ${(props) => props.theme.footerBackground};
   color: ${(props) => props.theme.footerFontColor};
   text-align: center;
-  padding: 10px;
+  padding: 30px;
   position: relative;
   width: 100%;
   bottom: 0;
-  margin-bottom: 0%;
+  margin-bottom: 0; 
+  height: 20px;
+  margin-top: 10px; 
 
   @keyframes fadeIn {
     from {
@@ -22,11 +24,12 @@ const FooterContainer = styled.footer`
 `;
 
 
+
 const Footer = () => {
   return (
-    <FooterContainer>
+   <FooterContainer>
       <p>&copy; 2025  Miran virajith,S Portfolio. All rights reserved.</p>
-    </FooterContainer>
+      </FooterContainer>
   );
 };
 

@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import profilePicture from './Images/WhatsApp Image 2025-03-24 at 18.46.10_d5fade9b (1).jpg'; 
 import coverPhoto from './Images/cover.jpg'; 
+import Header from './Header';
+import { Heading } from 'lucide-react';
 
 const AboutContainer = styled.div`
   display: flex;
@@ -171,6 +173,15 @@ const SocialLinks = styled.div`
   }
 `;
 
+const Heading2 = styled.h1`
+color: ${(props) => props.theme.textColor};
+transition: color 0.3s ease;
+font-size: 50px;
+ font-family: Bahnschrift SemiBold;
+
+`;
+
+
 function DownloadButton() {
   const handleDownload = () => {
     const link = document.createElement('a');
@@ -201,7 +212,7 @@ const About = () => {
     <AboutContainer>
       <CoverPhoto />
       <ProfilePicture src={profilePicture} alt="Profile" onClick={handleProfileClick} />
-      <h2>Miran Virajith Devinda</h2>
+      <Heading2>Miran Virajith Devinda</Heading2>
       
       <DownloadButton />
 

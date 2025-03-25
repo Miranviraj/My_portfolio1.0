@@ -21,6 +21,7 @@ body {
  h1{
   width: 100%;
   text-align: center;
+  color: #4a5fff;
    
  
  }
@@ -95,13 +96,7 @@ h2 {
 }
 
 footer {
-  background-color: #666e7c;
-  color: white;
-  text-align: center;
-  padding: 10px;
-  position: relative;
-  width: 100%;
-  bottom: 0;
+ 
 }
 
 nav button{

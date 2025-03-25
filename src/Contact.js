@@ -114,6 +114,15 @@ const Button1 = styled.div`
   }
 `;
 
+
+const StyledLink = styled.a`
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Inherit text color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Contact = () => {
   const navigate = useNavigate();  
 
@@ -131,14 +140,14 @@ const Contact = () => {
         <InfoBox1>
           <h1><FontAwesomeIcon icon={faContactBook} /> Contact Me</h1>
           <h3>Click To Contact me</h3>
-          <a href="https://www.linkedin.com/in/miran-virajith-devinda-8b5094294" target="_blank" rel="noopener noreferrer">
+          <StyledLink href="https://www.linkedin.com/in/miran-virajith-devinda-8b5094294" target="_blank" rel="noopener noreferrer">
             <Button1>Linkedin <FontAwesomeIcon icon={faMailBulk} /></Button1>
-          </a>
+          </StyledLink>
           <Button1 onClick={() => window.open('mailto:your-email@example.com', '_blank')}>E-mail <FontAwesomeIcon icon={faMailBulk} /></Button1>
           <Button1 onClick={() => window.open(whatsappLink, '_blank')}>WhatsApp <FontAwesomeIcon icon={faWhatsapp} /></Button1>
-          <a href="https://www.facebook.com/share/16GoaocRdT/" target="_blank" rel="noopener noreferrer">
+          <StyledLink href="https://www.facebook.com/share/16GoaocRdT/" target="_blank" rel="noopener noreferrer">
             <Button1>Facebook <FontAwesomeIcon icon={faFacebook} /></Button1>
-          </a>
+          </StyledLink>
         </InfoBox1>
       </div>
     </div>
