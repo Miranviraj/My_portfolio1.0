@@ -19,7 +19,17 @@ const InfoContainer = styled.div`
   margin-top: 7%;
   margin-bottom: 8%;
 
- 
+  @media (max-width: 768px) {
+    gap: 30px;
+    margin-top: 5%;
+    margin-bottom: 6%;
+  }
+
+  @media (max-width: 480px) {
+    gap: 20px;
+    margin-top: 3%;
+    margin-bottom: 4%;
+  }
 `;
 
 const InfoBox1 = styled.div`
@@ -31,6 +41,21 @@ const InfoBox1 = styled.div`
   width: 500px;
   height: 470px;
   box-shadow: 0 4px 8px rgba(227, 210, 210, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the content horizontally */
+
+  @media (max-width: 768px) {
+    width: 300px;
+    height: 400px;
+    padding: 15px;
+  }
+
+  @media (max-width: 480px) {
+    width: 200px;
+    height: 300px;
+    padding: 10px;
+  }
 `;
 
 const InfoBox2 = styled.div`
@@ -43,6 +68,18 @@ const InfoBox2 = styled.div`
   height: 400px;
   background-position: center;
   box-shadow: 0 4px 8px rgba(227, 210, 210, 0.1);
+
+  @media (max-width: 768px) {
+    width: 200px;
+    height: 300px;
+    padding: 15px;
+  }
+
+  @media (max-width: 480px) {
+    width: 150px;
+    height: 250px;
+    padding: 10px;
+  }
 `;
 
 const Button1 = styled.div`
@@ -53,12 +90,28 @@ const Button1 = styled.div`
   border-radius: 10px;
   width: 450px;
   height: 20px;
+  gap: 10px;
   background-position: center;
   justify-content: center;
-  margin-left: -1%;
-  margin-right: 10%;
+  cursor:pointer;
   margin-top: -2%;
   box-shadow: 0 4px 8px rgba(227, 210, 210, 0.1);
+  margin-bottom: 10px; /* Added gap between buttons */
+  display: flex;
+  align-items: center; /* Center the content vertically */
+  justify-content: center; /* Center the content horizontally */
+
+  @media (max-width: 768px) {
+    width: 300px;
+    height: 15px;
+    padding: 15px;
+  }
+
+  @media (max-width: 480px) {
+    width: 200px;
+    height: 10px;
+    padding: 10px;
+  }
 `;
 
 const Contact = () => {
@@ -76,38 +129,16 @@ const Contact = () => {
     <div className="center-table">
       <div className="table-container">
         <InfoBox1>
-          <table>
-            <tr>
-              <td><h1><FontAwesomeIcon icon={faContactBook} /> Contact Me</h1></td>
-            </tr>
-            <tr>
-              <td><h3>Click To Contact me</h3></td>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://www.linkedin.com/in/miran-virajith-devinda-8b5094294" target="_blank" rel="noopener noreferrer">
-                  <Button1>Linkedin <FontAwesomeIcon icon={faMailBulk} /></Button1>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <Button1 onClick={() => window.open('mailto:your-email@example.com', '_blank')}>E-mail <FontAwesomeIcon icon={faMailBulk} /></Button1>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <Button1 onClick={() => window.open(whatsappLink, '_blank')}>WhatsApp <FontAwesomeIcon icon={faWhatsapp} /></Button1>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://www.facebook.com/share/16GoaocRdT/" target="_blank" rel="noopener noreferrer">
-                  <Button1>Facebook <FontAwesomeIcon icon={faFacebook} /></Button1>
-                </a>
-              </td>
-            </tr>
-          </table>
+          <h1><FontAwesomeIcon icon={faContactBook} /> Contact Me</h1>
+          <h3>Click To Contact me</h3>
+          <a href="https://www.linkedin.com/in/miran-virajith-devinda-8b5094294" target="_blank" rel="noopener noreferrer">
+            <Button1>Linkedin <FontAwesomeIcon icon={faMailBulk} /></Button1>
+          </a>
+          <Button1 onClick={() => window.open('mailto:your-email@example.com', '_blank')}>E-mail <FontAwesomeIcon icon={faMailBulk} /></Button1>
+          <Button1 onClick={() => window.open(whatsappLink, '_blank')}>WhatsApp <FontAwesomeIcon icon={faWhatsapp} /></Button1>
+          <a href="https://www.facebook.com/share/16GoaocRdT/" target="_blank" rel="noopener noreferrer">
+            <Button1>Facebook <FontAwesomeIcon icon={faFacebook} /></Button1>
+          </a>
         </InfoBox1>
       </div>
     </div>

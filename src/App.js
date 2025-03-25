@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-
 import styled, { ThemeProvider } from 'styled-components';
+import { FaBars, FaTimes } from 'react-icons/fa';
 import Home from './Home';
 import About from './About';
 import Projects from './Projects';
@@ -12,12 +12,10 @@ import Html from './Html';
 import Flutter from './Flutter';
 import RReact from './RReact';
 import Php from './Php';
-
 import './App.css';
 import Switch from 'react-switch';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 
 const lightTheme = {
   background: '#dde0e1',
@@ -53,73 +51,138 @@ const AppContainer = styled.div`
   background-color: ${(props) => props.theme.background};
   color: ${(props) => props.theme.color};
   min-height: 100vh;
+  padding: 20px;
+
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 5px;
+  }
 `;
 
 const Button1 = styled.div`
   background-color: ${(props) => props.theme.Button1Background}; 
   color: ${(props) => props.theme.color};
-
-  `;
+`;
 
 const Header = styled.header`
   background-color: ${(props) => props.theme.headerBackground};
   color: ${(props) => props.theme.headerFontColor};
   padding: 20px;
-  text-align: Center;
-  margin-top: 0%;
-
-
- 
+  text-align: center;
+  margin-top: -20px;
+  position: relative;
+  width:100%;
+  margin-left:-20px;
+  
 
   h1 {
     color: ${(props) => props.theme.headerFontColor};
+  }
+
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px;
   }
 `;
 
 const Nav = styled.nav`
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: 10px;
+  margin-top: 0%;
+
 
   a {
-    padding: 10px 15px;
+    padding: 8px 12px;
     background-color: ${(props) => props.theme.navButtonBackground};
     color: ${(props) => props.theme.navButtonFontColor};
     text-decoration: none;
     border-radius: 5px;
+    font-size: 0.9rem; /* Decrease font size */
     transition: background-color 0.3s;
 
     &:hover {
       background-color: ${(props) => props.theme.navButtonBackground === '#e0e0e0' ? '#c0c0c0' : '#666'};
     }
+  }
 
+  @media (max-width: 768px) {
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: ${(props) => (props.isOpen ? '0' : '-100%')};
+    width: 100%;
+    background-color: ${(props) => props.theme.headerBackground};
+    transition: left 0.3s;
+  }
+`;
 
+const Hamburger = styled.div`
+  display: none;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 1.5rem; /* Adjust the size here */
 
+  @media (max-width: 768px) {
+    display: block;
+  }
+`;
 
+const FooterContainer = styled.footer`
+  background-color: ${(props) => props.theme.footerBackground};
+  color: ${(props) => props.theme.footerFontColor};
+  padding: 20px;
+  text-align: center;
+   margin-bottom: -50px;
+  position: relative;
+  width:100%;
+  margin-left:-20px;
+  height:-20px;
+
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px;
   }
 `;
 
 function App() {
   const [theme, setTheme] = useState(lightTheme);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleTheme = () => {
     setTheme(isDarkMode ? lightTheme : darkTheme);
     setIsDarkMode(!isDarkMode);
   };
 
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <AppContainer>
         <Router>
-          <header>
           <Header>
-         
-            <Nav> 
-              <Link to="/">Home</Link>
-              <Link to="/about">About</Link>
-              <Link to="/projects">Projects</Link>
-              <Link to="/contact">Contact</Link>
+            <Hamburger onClick={toggleMenu}>
+              {isOpen ? <FaTimes /> : <FaBars />}
+            </Hamburger>
+            <Nav isOpen={isOpen}>
+              <Link to="/" onClick={toggleMenu}>Home</Link>
+              <Link to="/about" onClick={toggleMenu}>About</Link>
+              <Link to="/projects" onClick={toggleMenu}>Projects</Link>
+              <Link to="/contact" onClick={toggleMenu}>Contact</Link>
               <Switch
                 onChange={toggleTheme}
                 checked={isDarkMode}
@@ -129,19 +192,20 @@ function App() {
               />
             </Nav>
           </Header>
-          </header>
           <Routes>
-          <Route path="/JavaProjects" element={<JavaProjects/>} />
-          <Route path="/Html" element={<Html/>} />
-          <Route path="/RReact" element={<RReact/>} />
-          <Route path="/Flutter" element={<Flutter/>} />
-          <Route path="/Php" element={<Php/>} />
+            <Route path="/JavaProjects" element={<JavaProjects />} />
+            <Route path="/Html" element={<Html />} />
+            <Route path="/RReact" element={<RReact />} />
+            <Route path="/Flutter" element={<Flutter />} />
+            <Route path="/Php" element={<Php />} />
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
-          <Footer />
+          <FooterContainer>
+            <Footer />
+          </FooterContainer>
         </Router>
       </AppContainer>
     </ThemeProvider>

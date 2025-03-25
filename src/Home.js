@@ -48,7 +48,7 @@ const SlidingWords = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   gap: 20px;
-  margin-top: 20px;
+  margin-top: -50px;
 `;
 
 const Button = styled.button`

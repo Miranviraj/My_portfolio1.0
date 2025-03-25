@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
@@ -12,6 +11,14 @@ const AboutContainer = styled.div`
   align-items: center;
   text-align: center;
   padding: 20px;
+
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px;
+  }
 `;
 
 const CoverPhoto = styled.div`
@@ -21,6 +28,16 @@ const CoverPhoto = styled.div`
   background: url(${coverPhoto}) no-repeat center center;
   background-size: cover;
   margin-bottom: -100px;
+
+  @media (max-width: 768px) {
+    height: 200px;
+    margin-bottom: -50px;
+  }
+
+  @media (max-width: 480px) {
+    height: 150px;
+    margin-bottom: -30px;
+  }
 `;
 
 const ProfilePicture = styled.img`
@@ -31,6 +48,15 @@ const ProfilePicture = styled.img`
   margin-bottom: 10px;
   cursor: pointer;
 
+  @media (max-width: 768px) {
+    width: 150px;
+    height: 150px;
+  }
+
+  @media (max-width: 480px) {
+    width: 100px;
+    height: 100px;
+  }
 `;
 
 const Modal = styled.div`
@@ -52,23 +78,42 @@ const ModalContent = styled.img`
   border-radius: 10px;
 `;
 
-
 const InfoContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
   margin-top: 20px;
+
+  
+    align-items: center;
+  }
+
+  @media (max-width: 480px) {
+    gap: 10px;
+    flex-direction: column;
+  }
 `;
 
 const InfoBox = styled.div`
-  background-color: ${(props) => props.theme.infoBoxBackground}; // Updated to use theme
+  background-color: ${(props) => props.theme.infoBoxBackground};
   color: ${(props) => props.theme.color};
   padding: 20px;
   border-radius: 10px;
   width: 600px;
   height: 200px;
   box-shadow: 0 4px 8px rgba(227, 210, 210, 0.1);
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    height: auto;
+    padding: 15px;
+  }
 `;
 
 const ResumeButton = styled.button`
@@ -84,6 +129,14 @@ const ResumeButton = styled.button`
   &:hover {
     background-color: #005582;
   }
+
+  @media (max-width: 768px) {
+    padding: 8px 16px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 6px 12px;
+  }
 `;
 
 const SocialLinks = styled.div`
@@ -98,6 +151,22 @@ const SocialLinks = styled.div`
 
     &:hover {
       color: #005582;
+    }
+  }
+
+  @media (max-width: 768px) {
+    gap: 15px;
+
+    a {
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    gap: 10px;
+
+    a {
+      font-size: 16px;
     }
   }
 `;
@@ -118,8 +187,6 @@ function DownloadButton() {
 }
 
 const About = () => {
-
-  
   const [showModal, setShowModal] = useState(false);
 
   const handleProfileClick = () => {
@@ -133,54 +200,40 @@ const About = () => {
   return (
     <AboutContainer>
       <CoverPhoto />
-      <ProfilePicture src={profilePicture} alt="Profile" onClick={handleProfileClick}  />
+      <ProfilePicture src={profilePicture} alt="Profile" onClick={handleProfileClick} />
       <h2>Miran Virajith Devinda</h2>
-      <p>Hello! I'm a web developer with a passion for creating beautiful and functional websites.</p>
+      
       <DownloadButton />
 
       <InfoContainer>
-        <table>
-          <tr>
-            <td>
-              <InfoBox>
-                <h2>Education</h2>
-                <p>BSc (Hons) in Software Engineering at CINEC Campus, currently in my 3rd year.</p>
-              </InfoBox>
-            </td>
-            <td>
-              <InfoBox>
-                <h2>Skills</h2>
-                <p>Enthusiastic about crafting scalable, high-performance web,
-                   Java, and mobile applications using cutting-edge technologies. 
-                   Driven by a strong sense of innovation and self-motivation, I excel in Java,
-                    React, JavaScript, Node.js, Firebase, and Flutter. My critical thinking skills
-                     enable me to tackle complex problems effectively, while my collaborative spirit
-                      ensures successful teamwork and project execution. Always eager to push boundaries
-                       and bring fresh ideas to life, I thrive in dynamic environments
-                   where creativity and technical expertise intersect.</p>
-              </InfoBox>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <InfoBox>
-                <h2>Interests</h2>
-                <p>I'm passionate about web development and mobile application development, 
-                  constantly exploring new technologies and frameworks to enhance my skills. Currently, 
-                  I'm diving into the fascinating world of AI and machine learning, eager to understand and
-                   leverage these powerful tools for future projects. My curiosity drives me to learn from every
-                   experience and source, always seeking to expand my knowledge and innovate.
-                </p>
-              </InfoBox>
-            </td>
-            <td>
-              <InfoBox>
-                <h2>Current Projects</h2>
-                <p>Currently, I'm working on an AI-driven Smart Apparel Management Web Application, a Tuition Management mobile application (Back-end), and researching my upcoming project (Augmented Reality Empowered Ancient Ruins Virtually Reconstructing Application).</p>
-              </InfoBox>
-            </td>
-          </tr>
-        </table>
+        <InfoBox>
+          <h2>Education</h2>
+          <p>BSc (Hons) in Software Engineering at CINEC Campus, currently in my 3rd year.</p>
+        </InfoBox>
+        <InfoBox>
+          <h2>Skills</h2>
+          <p>Enthusiastic about crafting scalable, high-performance web,
+             Java, and mobile applications using cutting-edge technologies. 
+             Driven by a strong sense of innovation and self-motivation, I excel in Java,
+              React, JavaScript, Node.js, Firebase, and Flutter. My critical thinking skills
+               enable me to tackle complex problems effectively, while my collaborative spirit
+                ensures successful teamwork and project execution. Always eager to push boundaries
+                 and bring fresh ideas to life, I thrive in dynamic environments
+             where creativity and technical expertise intersect.</p>
+        </InfoBox>
+        <InfoBox>
+          <h2>Interests</h2>
+          <p>I'm passionate about web development and mobile application development, 
+            constantly exploring new technologies and frameworks to enhance my skills. Currently, 
+            I'm diving into the fascinating world of AI and machine learning, eager to understand and
+             leverage these powerful tools for future projects. My curiosity drives me to learn from every
+             experience and source, always seeking to expand my knowledge and innovate.
+          </p>
+        </InfoBox>
+        <InfoBox>
+          <h2>Current Projects</h2>
+          <p>Currently, I'm working on an AI-driven Smart Apparel Management Web Application, a Tuition Management mobile application (Back-end), and researching my upcoming project (Augmented Reality Empowered Ancient Ruins Virtually Reconstructing Application).</p>
+        </InfoBox>
       </InfoContainer>
       <SocialLinks>
         <a href="https://www.linkedin.com/in/miran-virajith-devinda-8b5094294" target="_blank" rel="noopener noreferrer">
@@ -191,11 +244,9 @@ const About = () => {
         </a>
       </SocialLinks>
 
-      
       <Modal show={showModal} onClick={handleCloseModal}>
         <ModalContent src={profilePicture} alt="Profile" />
       </Modal>
-
     </AboutContainer>
   );
 };
