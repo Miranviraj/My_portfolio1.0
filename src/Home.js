@@ -4,6 +4,12 @@ import profilePicture from './Images/WhatsApp Image 2025-03-24 at 18.46.10_d5fad
 import { useNavigate } from 'react-router-dom';
 import './App.css'; 
 
+
+
+
+
+
+
 const theme = {
 
 };
@@ -59,7 +65,6 @@ font-size: 50px;
 
 `;
 
-
 const SlidingWords = () => {
   const words = ["Developer", "Designer", "Creator",];
   const [index, setIndex] = useState(0);
@@ -110,10 +115,24 @@ const Footer = styled.footer`
   color: white;
 `;
 
+
+
+
+
 const Home = () => {
   const navigate = useNavigate();
 
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+
   return (
+
+    
+    <div className={`app-container ${loaded ? 'fade-in' : ''}`}>
+
     <ThemeProvider theme={theme}>
       <HomeContainer>
         <ProfilePicture src={profilePicture} alt="Profile" />
@@ -128,6 +147,7 @@ const Home = () => {
       
       </HomeContainer>
     </ThemeProvider>
+    </div>
   );
 };
 

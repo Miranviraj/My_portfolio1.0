@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { faInstitution } from '@fortawesome/free-solid-svg-icons/faInstitution';
 import { faDog, faPaw } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const InfoContainer = styled.div`
   display: flex;
@@ -37,7 +39,7 @@ const InfoBox = styled.div`
   width: 500px;
   height: 100px;
   border: 2px solid ${(props) => props.theme.color};
-  box-shadow: 0 4px 8px rgba(227, 210, 210, 0.1);
+ box-shadow: 0 4px 8px ${(props) => props.theme.scolor};
 
   @media (max-width: 768px) {
     width: 400px;
@@ -52,6 +54,12 @@ const InfoBox = styled.div`
     padding: 10px;
       height: 150px;
   }
+
+  
+   &:hover {
+    transform: scale(1.1);
+  }
+
 `;
 
 
@@ -67,11 +75,18 @@ const StyledLink = styled.a`
 const Html = () => {
   const navigate = useNavigate();
 
+  const [loaded, setLoaded] = useState(false);
+  
+    useEffect(() => {
+      setLoaded(true);
+    }, []);
+
   const handleNavigation = (path) => {
     navigate(path);
   };
 
   return (
+    <div className={`app-container ${loaded ? 'fade-in' : ''}`}>
     <div className="center-table">
       <div className="table-container">
         <table>
@@ -97,6 +112,7 @@ const Html = () => {
           </tr>
         </table>
       </div>
+    </div>
     </div>
   );
 };

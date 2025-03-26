@@ -5,6 +5,8 @@ import { faLinkedin, faHtml5, faFlutter, faReact, faJava, faPhp } from '@fortawe
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 import { faBowlFood, faCashRegister, faCodeFork, faHome, faHotel, faTable } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 const InfoContainer = styled.div`
   display: flex;
@@ -35,7 +37,13 @@ const InfoBox1 = styled.div`
   width: 500px;
   height: 200px;
   border: 2px solid ${(props) => props.theme.color};
-  box-shadow: 0 4px 8px rgba(227, 210, 210, 0.1);
+ box-shadow: 0 4px 8px ${(props) => props.theme.scolor};
+
+  
+   &:hover {
+    transform: scale(1.1);
+  }
+
 
   @media (max-width: 768px) {
     width: auto;
@@ -62,11 +70,18 @@ const StyledLink = styled.a`
 const Php = () => {
   const navigate = useNavigate();
 
+  const [loaded, setLoaded] = useState(false);
+  
+    useEffect(() => {
+      setLoaded(true);
+    }, []);
+
   const handleNavigation = (path) => {
     navigate(path);
   };
 
   return (
+    <div className={`app-container ${loaded ? 'fade-in' : ''}`}>
     <div className="center-table">
       <div className="table-container">
         
@@ -91,6 +106,7 @@ const Php = () => {
           </tr>
         </table>
       </div>
+    </div>
     </div>
   );
 };

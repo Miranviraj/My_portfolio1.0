@@ -33,6 +33,7 @@ const lightTheme = {
   textGradient: 'linear-gradient(45deg,rgb(0, 0, 0),rgb(0, 4, 227))',
   textGradien: 'rgb(133, 180, 255),rgb(255, 255, 255),rgb(149, 190, 248))',
   textColor:'rgb(3, 0, 67)',
+  scolor:'rgb(3, 26, 62)',
 };
 
 const darkTheme = {
@@ -51,6 +52,7 @@ const darkTheme = {
  textGradient: 'linear-gradient(45deg,rgb(255, 230, 0),rgb(255, 255, 255))',
  textGradien: 'linear-gradient(45deg,rgb(9, 1, 67),rgb(0, 0, 0),rgb(4, 31, 97))',
  textColor:'rgb(198, 243, 243)',
+ scolor:'rgb(150, 179, 225)',
 
 };
 

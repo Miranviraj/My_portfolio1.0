@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHtml5, faFlutter, faReact, faJava, faPhp } from '@fortawesome/free-brands-svg-icons';
 import { Link, useNavigate } from 'react-router-dom';
+import { useEffect} from 'react';
+import { useState } from 'react';
 
 const InfoContainer = styled.div`
   display: flex;
@@ -31,22 +33,40 @@ const InfoBox = styled.div`
   border-radius: 10px;
   width: 500px;
   height: 70px;
-  border: 2px solid ${(props) => props.theme.color};
-  box-shadow: 0 4px 8px rgba(227, 210, 210, 0.1);
+ box-shadow: 0 4px 8px ${(props) => props.theme.scolor};
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+  
+
+   &:hover {
+    transform: scale(1.1);
+  }
+
 
   @media (max-width: 768px) {
     width: 100%;
     height: auto;
+     text-decoration: none;
   }
 
   @media (max-width: 480px) {
     width: 100%;
     height: auto;
     padding: 15px;
+     text-decoration: none;
   }
 `;
 
+ 
 const Projects = () => {
+
+  const [loaded, setLoaded] = useState(false);
+  
+    useEffect(() => {
+      setLoaded(true);
+    }, []);
+
   const navigate = useNavigate();
 
   const handleNavigation = (path) => {
@@ -54,6 +74,8 @@ const Projects = () => {
   };
 
   return (
+
+    <div className={`app-container ${loaded ? 'fade-in' : ''}`}>
     <section id="projects">
       <InfoContainer>
         <Link to="/JavaProjects">
@@ -93,6 +115,7 @@ const Projects = () => {
         </Link>
       </InfoContainer>
     </section>
+    </div>
   );
 };
 

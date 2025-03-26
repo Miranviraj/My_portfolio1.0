@@ -4,10 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faHtml5, faFlutter, faReact, faJava, faPhp } from '@fortawesome/free-brands-svg-icons';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom'; 
-
+import { useState } from 'react';
 import { faCashRegister, faHotel } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
-
+import { useEffect } from 'react';
 const AboutContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -45,13 +45,18 @@ const InfoBox = styled.div`
   border-radius: 10px;
   width: 600px;
   height: 300px;
-  box-shadow: 0 4px 8px rgba(227, 210, 210, 0.1);
   cursor: pointer; /* Add cursor pointer for better UX */
   text-decoration: none; /* Remove underline */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+ box-shadow: 0 4px 8px ${(props) => props.theme.scolor};
+  
+   &:hover {
+    transform: scale(1.1);
+  }
+
 
   @media (max-width: 768px) {
     width: 100%;
@@ -76,11 +81,18 @@ const StyledLink = styled.a`
 const JavaProjects = () => {
   const navigate = useNavigate();  
 
+  const [loaded, setLoaded] = useState(false);
+  
+    useEffect(() => {
+      setLoaded(true);
+    }, []);
+
   const handleNavigation = (path) => {
     navigate(path);
   };
 
   return (
+    <div className={`app-container ${loaded ? 'fade-in' : ''}`}>
     <AboutContainer>
       <h1>Java Projects <FontAwesomeIcon icon={faJava} /></h1>
       <InfoContainer>
@@ -123,6 +135,7 @@ const JavaProjects = () => {
         </StyledLink>
       </InfoContainer>
     </AboutContainer>
+    </div>
   );
 };
 

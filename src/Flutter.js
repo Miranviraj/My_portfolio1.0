@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { faInstitution } from '@fortawesome/free-solid-svg-icons/faInstitution';
 import { faDog, faPaw } from '@fortawesome/free-solid-svg-icons';
+import { useEffect} from 'react';
+import { useState } from 'react';
 
 const InfoContainer = styled.div`
   display: flex;
@@ -36,8 +38,9 @@ const InfoBox = styled.div`
   border-radius: 10px;
   width: 500px;
   height: 150px;
-  border: 2px solid ${(props) => props.theme.color};
-  box-shadow: 0 4px 8px rgba(227, 210, 210, 0.1);
+ box-shadow: 0 4px 8px ${(props) => props.theme.scolor};
+   border: 3px solid ${(props) => props.theme.color}; 
+  border-radius: 10px;
 
   @media (max-width: 768px) {
     width: 400px;
@@ -52,6 +55,12 @@ const InfoBox = styled.div`
     padding: 10px;
      
   }
+
+  
+   &:hover {
+    transform: scale(1.1);
+  }
+
 `;
 
 
@@ -65,6 +74,13 @@ const StyledLink = styled.a`
 
 
 const Flutter = () => {
+
+const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+
   const navigate = useNavigate();
 
   const handleNavigation = (path) => {
@@ -72,6 +88,7 @@ const Flutter = () => {
   };
 
   return (
+    <div className={`app-container ${loaded ? 'fade-in' : ''}`}>
     <div className="center-table">
       <div className="table-container">
         <table>
@@ -103,6 +120,7 @@ currently Im creating A Mobile application with using Flutter for better respons
           </tr>
         </table>
       </div>
+    </div>
     </div>
   );
 };

@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faHtml5, faFlutter, faReact, faJava, faPhp } from '@fortawesome/free-brands-svg-icons';
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 import { faMedal, faTshirt } from '@fortawesome/free-solid-svg-icons';
-
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 const AboutContainer = styled.div`
   display: flex;
@@ -48,7 +49,14 @@ const InfoBox = styled.div`
   border-radius: 10px;
   width: 600px;
   height: 200px;
-  box-shadow: 0 4px 8px rgba(227, 210, 210, 0.1);
+  box-shadow: 0 4px 8px ${(props) => props.theme.scolor};
+
+
+  
+   &:hover {
+    transform: scale(1.1);
+  }
+
 
   @media (max-width: 768px) {
     width: 100%;
@@ -74,12 +82,18 @@ const StyledLink = styled.a`
 const RReact = () => {
   const navigate = useNavigate();
 
+  const [loaded, setLoaded] = useState(false);
+  
+    useEffect(() => {
+      setLoaded(true);
+    }, []);
+
   const handleNavigation = (path) => {
     navigate(path);
   };
 
   return (
-
+    <div className={`app-container ${loaded ? 'fade-in' : ''}`}>
     <AboutContainer>
          <h2 >React Projects <FontAwesomeIcon icon={faReact} /></h2>
     <InfoContainer>
@@ -107,6 +121,7 @@ const RReact = () => {
 
     </InfoContainer>
   </AboutContainer>
+  </div>
   );
 };
 

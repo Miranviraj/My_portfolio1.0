@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom'; 
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 import { faCashRegister, faContactCard, faHotel, faMailBulk, faMailForward } from '@fortawesome/free-solid-svg-icons';
 import { faLinkedin, faGithub, faWhatsapp, faFacebook } from '@fortawesome/free-brands-svg-icons';
@@ -12,24 +14,14 @@ import { faMailReply } from '@fortawesome/free-solid-svg-icons/faMailReply';
 import { faMailchimp } from '@fortawesome/free-brands-svg-icons/faMailchimp';
 
 const InfoContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 50px;
-  margin-top: 7%;
-  margin-bottom: 8%;
-
-  @media (max-width: 768px) {
-    gap: 30px;
-    margin-top: 5%;
-    margin-bottom: 6%;
-  }
-
-  @media (max-width: 480px) {
-    gap: 20px;
-    margin-top: 3%;
-    margin-bottom: 4%;
-  }
+  height: 100vh;
+  width: 100vw;
+  text-align: center;
+  overflow: hidden;
 `;
 
 const InfoBox1 = styled.div`
@@ -86,7 +78,7 @@ const Button1 = styled.div`
   background-color: ${(props) => props.theme.Button1Background}; 
   color: ${(props) => props.theme.color};
   padding: 20px;
-  border: 3px solid ${(props) => props.theme.color}; 
+ 
   border-radius: 10px;
   width: 450px;
   height: 20px;
@@ -95,11 +87,16 @@ const Button1 = styled.div`
   justify-content: center;
   cursor:pointer;
   margin-top: -2%;
-  box-shadow: 0 4px 8px rgba(227, 210, 210, 0.1);
+  box-shadow: 0 4px 8px ${(props) => props.theme.scolor};
   margin-bottom: 10px; /* Added gap between buttons */
   display: flex;
-  align-items: center; /* Center the content vertically */
-  justify-content: center; /* Center the content horizontally */
+  align-items: center; 
+  justify-content: center; 
+  
+   &:hover {
+    transform: scale(1.1);
+  }
+
 
   @media (max-width: 768px) {
     width: 300px;
@@ -126,6 +123,12 @@ const StyledLink = styled.a`
 const Contact = () => {
   const navigate = useNavigate();  
 
+   const [loaded, setLoaded] = useState(false);
+  
+    useEffect(() => {
+      setLoaded(true);
+    }, []);
+
   const handleNavigation = (path) => {
     navigate(path);
   };
@@ -135,8 +138,14 @@ const Contact = () => {
   const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
   return (
+
+    <InfoContainer>
+ 
     <div className="center-table">
       <div className="table-container">
+
+        
+    <div className={`app-container ${loaded ? 'bounce' : ''}`}>
         <InfoBox1>
           <h1><FontAwesomeIcon icon={faContactBook} /> Contact Me</h1>
           <h3>Click To Contact me</h3>
@@ -149,8 +158,12 @@ const Contact = () => {
             <Button1>Facebook <FontAwesomeIcon icon={faFacebook} /></Button1>
           </StyledLink>
         </InfoBox1>
+        </div>
       </div>
     </div>
+ 
+    </InfoContainer>
+  
   );
 };
 

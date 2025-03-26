@@ -4,8 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import profilePicture from './Images/WhatsApp Image 2025-03-24 at 18.46.10_d5fade9b (1).jpg'; 
 import coverPhoto from './Images/cover.jpg'; 
-import Header from './Header';
-import { Heading } from 'lucide-react';
+import { useEffect } from 'react';
 
 const AboutContainer = styled.div`
   display: flex;
@@ -104,7 +103,13 @@ const InfoBox = styled.div`
   border-radius: 10px;
   width: 600px;
   height: 200px;
-  box-shadow: 0 4px 8px rgba(227, 210, 210, 0.1);
+  box-shadow: 0 4px 8px ${(props) => props.theme.scolor};
+
+  
+   &:hover {
+    transform: scale(1.1);
+  }
+
 
   @media (max-width: 768px) {
     width: 100%;
@@ -198,6 +203,13 @@ function DownloadButton() {
 }
 
 const About = () => {
+
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+
   const [showModal, setShowModal] = useState(false);
 
   const handleProfileClick = () => {
@@ -209,12 +221,15 @@ const About = () => {
   };
 
   return (
+
+    <div className={`app-container ${loaded ? 'zoom-in' : ''}`}>
     <AboutContainer>
       <CoverPhoto />
       <ProfilePicture src={profilePicture} alt="Profile" onClick={handleProfileClick} />
       <Heading2>Miran Virajith Devinda</Heading2>
       
-      <DownloadButton />
+     
+    <div className={`app-container ${loaded ? 'pulse' : ''}`}> <DownloadButton /></div>
 
       <InfoContainer>
         <InfoBox>
@@ -259,6 +274,7 @@ const About = () => {
         <ModalContent src={profilePicture} alt="Profile" />
       </Modal>
     </AboutContainer>
+    </div>
   );
 };
 
