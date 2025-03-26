@@ -9,12 +9,15 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 
 const InfoContainer = styled.div`
-  display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 50px;
   margin-top: 7%;
   margin-bottom: 8%;
+  display: flex;
+  flex-direction: column; 
+  min-height: 100vh; 
+  flex: 1;
 
   @media (max-width: 768px) {
     gap: 20px;
@@ -81,6 +84,8 @@ const Php = () => {
   };
 
   return (
+
+     <InfoContainer>
     <div className={`app-container ${loaded ? 'fade-in' : ''}`}>
     <div className="center-table">
       <div className="table-container">
@@ -108,6 +113,7 @@ const Php = () => {
       </div>
     </div>
     </div>
+    </InfoContainer>
   );
 };
 

@@ -31,6 +31,7 @@ const InfoContainer = styled.div`
   gap: 20px;
   margin-top: 100px;
   margin-bottom: 25%;
+  width 100%;
 
   @media (max-width: 480px) {
     gap: 10px;

@@ -49,17 +49,18 @@ const darkTheme = {
   navButtonFontColor: '#ffffff',
   infoBoxBackground: '#323540', 
   infoBoxBorderColor: '#ffffff',
- textGradient: 'linear-gradient(45deg,rgb(255, 230, 0),rgb(255, 255, 255))',
- textGradien: 'linear-gradient(45deg,rgb(9, 1, 67),rgb(0, 0, 0),rgb(4, 31, 97))',
- textColor:'rgb(198, 243, 243)',
- scolor:'rgb(150, 179, 225)',
-
+  textGradient: 'linear-gradient(45deg,rgb(255, 230, 0),rgb(255, 255, 255))',
+  textGradien: 'linear-gradient(45deg,rgb(9, 1, 67),rgb(0, 0, 0),rgb(4, 31, 97))',
+  textColor:'rgb(198, 243, 243)',
+  scolor:'rgb(150, 179, 225)',
 };
 
 const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the container takes full viewport height */
   background: ${(props) => props.theme.textGradien};
   color: ${(props) => props.theme.color};
-  min-height: 100vh;
   padding: 20px;
 
   @media (max-width: 768px) {
@@ -71,8 +72,9 @@ const AppContainer = styled.div`
   }
 `;
 
-
-
+const Main = styled.main`
+  flex: 1; /* Makes the main content stretch to fill available space */
+`;
 
 const Button1 = styled.div`
   background-color: ${(props) => props.theme.Button1Background}; 
@@ -88,7 +90,7 @@ const Header = styled.header`
   position: relative;
   width:100%;
   margin-left:-20px;
-  
+  height:25px;
 
   h1 {
     color: ${(props) => props.theme.headerFontColor};
@@ -109,14 +111,13 @@ const Nav = styled.nav`
   gap: 10px;
   margin-top: 0%;
 
-
   a {
     padding: 8px 12px;
     background-color: ${(props) => props.theme.navButtonBackground};
     color: ${(props) => props.theme.navButtonFontColor};
     text-decoration: none;
     border-radius: 5px;
-    font-size: 0.9rem; /* Decrease font size */
+    font-size: 0.9rem;
     transition: background-color 0.3s;
 
     &:hover {
@@ -127,11 +128,11 @@ const Nav = styled.nav`
   @media (max-width: 768px) {
     flex-direction: column;
     position: absolute;
-    top: 60px;
-    left: ${(props) => (props.isOpen ? '0' : '-100%')};
-    width: 100%;
+    top: 55px;
+    right: ${(props) => (props.isOpen ? '0' : '-100%')};
+    width: 30%;
     background-color: ${(props) => props.theme.headerBackground};
-    transition: left 0.3s;
+    transition: right 0.3s;
   }
 `;
 
@@ -141,13 +142,12 @@ const Hamburger = styled.div`
   position: absolute;
   top: 10px;
   right: 20px;
-  font-size: 1.5rem; /* Adjust the size here */
+  font-size: 2.0rem;
 
   @media (max-width: 768px) {
     display: block;
   }
 `;
-
 
 function App() {
   const [theme, setTheme] = useState(lightTheme);
@@ -185,20 +185,20 @@ function App() {
               />
             </Nav>
           </Header>
-          <Routes>
-            <Route path="/JavaProjects" element={<JavaProjects />} />
-            <Route path="/Html" element={<Html />} />
-            <Route path="/RReact" element={<RReact />} />
-            <Route path="/Flutter" element={<Flutter />} />
-            <Route path="/Php" element={<Php />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-          
-            <Footer />
-         
+          <Main>
+            <Routes>
+              <Route path="/JavaProjects" element={<JavaProjects />} />
+              <Route path="/Html" element={<Html />} />
+              <Route path="/RReact" element={<RReact />} />
+              <Route path="/Flutter" element={<Flutter />} />
+              <Route path="/Php" element={<Php />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/contact" element={<Contact />} />
+            </Routes>
+          </Main>
+          <Footer />
         </Router>
       </AppContainer>
     </ThemeProvider>

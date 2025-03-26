@@ -13,6 +13,8 @@ const InfoContainer = styled.div`
   gap: 50px;
   margin-top: 7%;
   margin-bottom: 8%;
+  flex: 1;
+  min-height: 100vh; 
 
   @media (max-width: 768px) {
     gap: 20px;
@@ -37,6 +39,7 @@ const InfoBox = styled.div`
   text-decoration: none;
   justify-content: center;
   align-items: center;
+  
   
 
    &:hover {
