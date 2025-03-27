@@ -9,6 +9,26 @@ import { faPaw } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
+const InfoContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
+  margin-top: -200px;
+  margin-bottom: 8%;
+
+  @media (max-width: 768px) {
+    gap: 30px;
+    margin-top: 5%;
+    margin-bottom: 6%;
+  }
+
+  @media (max-width: 480px) {
+    gap: 20px;
+    margin-top: 3%;
+    margin-bottom: 4%;
+  }
+`;
 
 
 const InfoBox = styled.div`
@@ -66,7 +86,7 @@ const Html = () => {
     navigate(path);
   };
 
-  return (
+  return (<InfoContainer>
     <div className={`app-container ${loaded ? 'fade-in' : ''}`}>
     <div className="center-table">
       <div className="table-container">
@@ -95,6 +115,7 @@ const Html = () => {
       </div>
     </div>
     </div>
+    </InfoContainer>
   );
 };
 

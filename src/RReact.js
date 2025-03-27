@@ -2,10 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  faReact } from '@fortawesome/free-brands-svg-icons';
-import { BrowserRouter as useNavigate } from 'react-router-dom';
+
 import { faMedal, faTshirt } from '@fortawesome/free-solid-svg-icons';
 import { useEffect } from 'react';
 import { useState } from 'react';
+
+import { useNavigate } from 'react-router-dom';
+
 
 const AboutContainer = styled.div`
   display: flex;
@@ -93,7 +96,7 @@ const RReact = () => {
   return (
     <div className={`app-container ${loaded ? 'fade-in' : ''}`}>
     <AboutContainer>
-         <h2 >React Projects <FontAwesomeIcon icon={faReact} /></h2>
+         <h1 >React Projects <FontAwesomeIcon icon={faReact} /></h1>
     <InfoContainer>
     <StyledLink href="https://www.figma.com/design/ukjvjGtSQwOlBzApE2nEyD/Untitled?node-id=0-1&t=3qhys5u6h6NRwEnK-0" target="_blank" rel="noopener noreferrer">
       <InfoBox>

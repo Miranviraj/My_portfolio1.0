@@ -27,8 +27,10 @@ const FooterContainer = styled.footer`
 
 const Footer = () => {
   return (
-   <FooterContainer>
-      <p>&copy; 2025  Miran virajith,S Portfolio. All rights reserved.</p>
+     <FooterContainer>
+          <div style={{  fontSize: '18px', fontWeight: 'bold', padding: '-200px' ,textAlign:'center'}}>
+          © 2025 Miran Virajith. All Rights Reserved.
+      </div> 
       </FooterContainer>
   );
 };

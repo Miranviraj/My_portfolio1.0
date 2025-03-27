@@ -12,7 +12,7 @@ const InfoContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   gap: 50px;
-  margin-top: 7%;
+  margin-top: -150px;
   margin-bottom: 8%;
   display: flex;
   flex-direction: column; 

@@ -247,6 +247,7 @@ nav button{
   animation: pulse 1s infinite alternate;
 }
 
+
 @keyframes swing {
   20% {
     transform: rotate(15deg);
@@ -309,5 +310,4 @@ nav button{
   .flash {
   animation: flash 1s ease-in;
 }
-
 

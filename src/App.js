@@ -106,13 +106,26 @@ const Nav = styled.nav`
     flex-direction: column;
     position: absolute;
     top: 55px;
-    right: 0;
+   right: 70px;
+    width: 20%;
+     display: ${(props) => (props.isOpen ? 'flex' : 'none')}; 
+    background-color: ${(props) => props.theme.headerBackground};
+    transform: ${(props) => (props.isOpen ? 'translateX(0)' : 'translateX(100%)')};  
+    transition: transform 0.3s ease-in-out;
+  }
+
+   @media (max-width: 480px) {
+   flex-direction: column;
+    position: absolute;
+    top: 55px;
+    right: 30px;
     width: 30%;
      display: ${(props) => (props.isOpen ? 'flex' : 'none')}; 
     background-color: ${(props) => props.theme.headerBackground};
     transform: ${(props) => (props.isOpen ? 'translateX(0)' : 'translateX(100%)')};  
     transition: transform 0.3s ease-in-out;
   }
+
 `;
 
 const Hamburger = styled.div`
@@ -120,12 +133,21 @@ const Hamburger = styled.div`
   cursor: pointer;
   position: absolute;
   top: 10px;
-  right: 20px;
+  
   font-size: 2rem;
 
   @media (max-width: 768px) {
     display: block;
+    right: 80px;
   }
+
+   @media (max-width: 480px) {
+   display: block;
+   right: 70px;
+   
+  }
+
+
 `;
 
 function App() {
@@ -145,7 +167,14 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
+     
         <Header>
+  <div style={{  fontSize: '18px', fontWeight: 'bold', padding: '-200px' ,marginLeft:'-1000px'}}>
+    My-Portfolio
+  </div> 
+  
+  <div style={{  fontSize: '18px', fontWeight: 'bold', padding: '-200px' ,marginTop:'-15px'}}> 
+  
           <Hamburger onClick={toggleMenu}>
             {isOpen ? <FaTimes /> : <FaBars />}
           </Hamburger>
@@ -162,6 +191,7 @@ function App() {
               checkedIcon={<div style={{ padding: '5px' }}> <FontAwesomeIcon icon={faMoon} /></div>}
             />
           </Nav>
+          </div>
         </Header>
         <AppContainer>
        
@@ -179,7 +209,11 @@ function App() {
         
         </AppContainer>
       </Router>
-      <Footer />
+ 
+      
+
+    
+        <Footer/>
     </ThemeProvider>
   );
 }

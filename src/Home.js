@@ -76,6 +76,20 @@ transition: color 0.3s ease;
 font-size: 50px;
  font-family: Copperplate Gothic Light;
 
+  @media (max-width: 768px) {
+   
+
+   
+      font-size: 30px;
+    }
+ 
+
+  @media (max-width: 480px) {
+  font-size: 20px;
+    
+    
+    }
+
 `;
 
 const SlidingWords = () => {

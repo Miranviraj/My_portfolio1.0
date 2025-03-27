@@ -8,7 +8,11 @@ const Header = () => {
 
 
   return (
-    <Header>
+   
+     <Header>
+  <div style={{ textAlign: 'center', fontSize: '18px', fontWeight: 'bold', padding: '10px' }}>
+    Building the future, one line of code at a time!
+  </div>
     <Hamburger onClick={toggleMenu}>
       {isOpen ? <FaTimes /> : <FaBars />}
     </Hamburger>
@@ -27,6 +31,7 @@ const Header = () => {
     </Nav>
 
   <Main>
+ 
     <Routes>
       <Route path="/JavaProjects" element={<JavaProjects />} />
       <Route path="/Html" element={<Html />} />
