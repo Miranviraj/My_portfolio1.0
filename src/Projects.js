@@ -12,6 +12,9 @@ const InfoContainer = styled.div`
   gap: 50px;
   margin-top: 0%;
   margin-bottom: 0%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 
   @media (max-width: 768px) {
     gap: 20px;
@@ -36,9 +39,21 @@ const InfoBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+   margin: 0;
+ 
 
   &:hover {
     transform: scale(1.1);
+  }
+ @media (max-width: 768px) {
+   width: 500px;
+    flex-direction: column;
+  }
+
+  @media (max-width: 480px) {
+ width: 200px;
+    flex-direction: column;
+     
   }
 `;
 
