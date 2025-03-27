@@ -26,18 +26,31 @@ const HomeContainer = styled.div`
 `;
 
 const ProfilePicture = styled.img`
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 170px;
   border-radius: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
+  margin-top:-150px;
 
   &:hover {
     transform: scale(1.1);
   }
-`;
 
+ @media (max-width: 768px) {
+    width: 140px;
+    height: 150px;
+    margin-top:20px;
+  }
+
+  @media (max-width: 480px) {
+    width: 130px;
+    height: 120px;
+    margin-top:20px;
+  
+  }
+`;
 const SlidingWordsContainer = styled.div`
   margin: 20px;
   height: 80px;
@@ -105,15 +118,6 @@ const Button = styled.button`
   }
 `;
 
-const Footer = styled.footer`
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
-  padding: 10px;
-  background: #282c34;
-  color: white;
-`;
 
 
 

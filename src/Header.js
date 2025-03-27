@@ -5,25 +5,42 @@ import './App.css';
 const Header = () => {
   const [isMobile, setIsMobile] = useState(false);
 
-  const handleToggle = () => {
-    setIsMobile(!isMobile);
-  };
+
 
   return (
-    <header className="header">
-      <div className="logo">MyApp</div>
-      <nav className={isMobile ? "nav-mobile" : "nav"}>
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-      <div className="hamburger" onClick={handleToggle}>
-        {isMobile ? <FaTimes /> : <FaBars />}
-      </div>
-    </header>
+    <Header>
+    <Hamburger onClick={toggleMenu}>
+      {isOpen ? <FaTimes /> : <FaBars />}
+    </Hamburger>
+    <Nav isOpen={isOpen}>
+      <Link to="/" onClick={toggleMenu}>Home</Link>
+      <Link to="/about" onClick={toggleMenu}>About</Link>
+      <Link to="/projects" onClick={toggleMenu}>Projects</Link>
+      <Link to="/contact" onClick={toggleMenu}>Contact</Link>
+      <Switch
+        onChange={toggleTheme}
+        checked={isDarkMode}
+        onColor="#000000"
+        uncheckedIcon={<div style={{ padding: '5px' }}> <FontAwesomeIcon icon={faSun} /></div>}
+        checkedIcon={<div style={{ padding: '5px' }}> <FontAwesomeIcon icon={faMoon} /></div>}
+      />
+    </Nav>
+
+  <Main>
+    <Routes>
+      <Route path="/JavaProjects" element={<JavaProjects />} />
+      <Route path="/Html" element={<Html />} />
+      <Route path="/RReact" element={<RReact />} />
+      <Route path="/Flutter" element={<Flutter />} />
+      <Route path="/Php" element={<Php />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/projects" element={<Projects />} />
+      <Route path="/contact" element={<Contact />} />
+    </Routes>
+  </Main>
+  </Header>
+ 
   );
 };
 

@@ -18,7 +18,7 @@ import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const lightTheme = {
-  background: 'linear-gradient(45deg,rgb(255, 0, 0),rgb(0, 4, 227))',
+  background: 'linear-gradient(45deg,rgb(149, 200, 255),rgb(255, 255, 255),rgb(96, 140, 236))',
   color: '#000000',
   headerBackground: '#bcbfca',
   footerBackground: '#bcbfca',
@@ -28,16 +28,13 @@ const lightTheme = {
   buttonFontColor: '#333',
   navButtonBackground: '#e0e0e0',
   navButtonFontColor: '#000000',
-  infoBoxBackground: '#bcbfca', 
-  Button1Background: '#f2f3f5',
   textGradient: 'linear-gradient(45deg,rgb(0, 0, 0),rgb(0, 4, 227))',
-  textGradien: 'rgb(133, 180, 255),rgb(255, 255, 255),rgb(149, 190, 248))',
-  textColor:'rgb(3, 0, 67)',
-  scolor:'rgb(3, 26, 62)',
+  textColor: 'rgb(3, 0, 67)',
+  infoBoxBackground: 'rgb(185, 228, 255)',
 };
 
 const darkTheme = {
-  background: '#19203d',
+  background: 'linear-gradient(45deg,rgb(3, 9, 73),rgb(0, 0, 0),rgb(5, 6, 82))',
   color: '#ffffff',
   headerBackground: '#323540',
   footerBackground: '#323540',
@@ -47,69 +44,50 @@ const darkTheme = {
   buttonFontColor: '#ffffff',
   navButtonBackground: '#19203d',
   navButtonFontColor: '#ffffff',
-  infoBoxBackground: '#323540', 
-  infoBoxBorderColor: '#ffffff',
   textGradient: 'linear-gradient(45deg,rgb(255, 230, 0),rgb(255, 255, 255))',
-  textGradien: 'linear-gradient(45deg,rgb(9, 1, 67),rgb(0, 0, 0),rgb(4, 31, 97))',
-  textColor:'rgb(198, 243, 243)',
-  scolor:'rgb(150, 179, 225)',
+  textColor: 'rgb(198, 243, 243)',
+  infoBoxBackground: 'rgb(0, 36, 58)', 
 };
 
 const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Ensures the container takes full viewport height */
-  background: ${(props) => props.theme.textGradien};
+  min-height: 100vh;
+  background: ${(props) => props.theme.background};
   color: ${(props) => props.theme.color};
-  padding: 20px;
-
-  @media (max-width: 768px) {
-    padding: 10px;
-  }
-
-  @media (max-width: 480px) {
-    padding: 5px;
-  }
+  padding: 30px;
+  margin-bottom: -20px;
+  width:100%;
+   margin-right: 0%;
+    margin-left: 0%;
+  
+  
 `;
 
-const Main = styled.main`
-  flex: 1; /* Makes the main content stretch to fill available space */
-`;
 
-const Button1 = styled.div`
-  background-color: ${(props) => props.theme.Button1Background}; 
-  color: ${(props) => props.theme.color};
-`;
 
 const Header = styled.header`
-  background-color: ${(props) => props.theme.headerBackground};
-  color: ${(props) => props.theme.headerFontColor};
-  padding: 20px;
+ background-color: ${(props) => props.theme.footerBackground};
+  color: ${(props) => props.theme.footerFontColor};
   text-align: center;
-  margin-top: -20px;
+  padding: 30px;
   position: relative;
-  width:100%;
-  margin-left:-20px;
-  height:25px;
+  width: 100%;
 
-  h1 {
-    color: ${(props) => props.theme.headerFontColor};
-  }
+  margin-bottom: 0; 
+  height: 20px;
+  margin-top: 0%; 
 
-  @media (max-width: 768px) {
-    padding: 15px;
-  }
-
-  @media (max-width: 480px) {
-    padding: 10px;
-  }
 `;
+
+
+ 
 
 const Nav = styled.nav`
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-top: 0%;
+  
 
   a {
     padding: 8px 12px;
@@ -117,7 +95,6 @@ const Nav = styled.nav`
     color: ${(props) => props.theme.navButtonFontColor};
     text-decoration: none;
     border-radius: 5px;
-    font-size: 0.9rem;
     transition: background-color 0.3s;
 
     &:hover {
@@ -129,10 +106,12 @@ const Nav = styled.nav`
     flex-direction: column;
     position: absolute;
     top: 55px;
-    right: ${(props) => (props.isOpen ? '0' : '-100%')};
+    right: 0;
     width: 30%;
+     display: ${(props) => (props.isOpen ? 'flex' : 'none')}; 
     background-color: ${(props) => props.theme.headerBackground};
-    transition: right 0.3s;
+    transform: ${(props) => (props.isOpen ? 'translateX(0)' : 'translateX(100%)')};  
+    transition: transform 0.3s ease-in-out;
   }
 `;
 
@@ -142,7 +121,7 @@ const Hamburger = styled.div`
   position: absolute;
   top: 10px;
   right: 20px;
-  font-size: 2.0rem;
+  font-size: 2rem;
 
   @media (max-width: 768px) {
     display: block;
@@ -160,32 +139,32 @@ function App() {
   };
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => !prev);
   };
 
   return (
     <ThemeProvider theme={theme}>
-      <AppContainer>
-        <Router>
-          <Header>
-            <Hamburger onClick={toggleMenu}>
-              {isOpen ? <FaTimes /> : <FaBars />}
-            </Hamburger>
-            <Nav isOpen={isOpen}>
-              <Link to="/" onClick={toggleMenu}>Home</Link>
-              <Link to="/about" onClick={toggleMenu}>About</Link>
-              <Link to="/projects" onClick={toggleMenu}>Projects</Link>
-              <Link to="/contact" onClick={toggleMenu}>Contact</Link>
-              <Switch
-                onChange={toggleTheme}
-                checked={isDarkMode}
-                onColor="#000000"
-                uncheckedIcon={<div style={{ padding: '5px' }}> <FontAwesomeIcon icon={faSun} /></div>}
-                checkedIcon={<div style={{ padding: '5px' }}> <FontAwesomeIcon icon={faMoon} /></div>}
-              />
-            </Nav>
-          </Header>
-          <Main>
+      <Router>
+        <Header>
+          <Hamburger onClick={toggleMenu}>
+            {isOpen ? <FaTimes /> : <FaBars />}
+          </Hamburger>
+          <Nav isOpen={isOpen}>
+            <Link to="/" onClick={toggleMenu}>Home</Link>
+            <Link to="/about" onClick={toggleMenu}>About</Link>
+            <Link to="/projects" onClick={toggleMenu}>Projects</Link>
+            <Link to="/contact" onClick={toggleMenu}>Contact</Link>
+            <Switch
+              onChange={toggleTheme}
+              checked={isDarkMode}
+              onColor="#000000"
+              uncheckedIcon={<div style={{ padding: '5px' }}> <FontAwesomeIcon icon={faSun} /></div>}
+              checkedIcon={<div style={{ padding: '5px' }}> <FontAwesomeIcon icon={faMoon} /></div>}
+            />
+          </Nav>
+        </Header>
+        <AppContainer>
+       
             <Routes>
               <Route path="/JavaProjects" element={<JavaProjects />} />
               <Route path="/Html" element={<Html />} />
@@ -197,10 +176,10 @@ function App() {
               <Route path="/projects" element={<Projects />} />
               <Route path="/contact" element={<Contact />} />
             </Routes>
-          </Main>
-          <Footer />
-        </Router>
-      </AppContainer>
+        
+        </AppContainer>
+      </Router>
+      <Footer />
     </ThemeProvider>
   );
 }

@@ -1,34 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLinkedin, faHtml5, faFlutter, faReact, faJava, faPhp } from '@fortawesome/free-brands-svg-icons';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import {  faHtml5 } from '@fortawesome/free-brands-svg-icons';
+
 import { useNavigate } from 'react-router-dom';
-import { faInstitution } from '@fortawesome/free-solid-svg-icons/faInstitution';
-import { faDog, faPaw } from '@fortawesome/free-solid-svg-icons';
+
+import { faPaw } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-const InfoContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 50px;
-  margin-top: 7%;
-  margin-bottom: 8%;
 
-  @media (max-width: 768px) {
-    gap: 30px;
-    margin-top: 5%;
-    margin-bottom: 6%;
-  }
-
-  @media (max-width: 480px) {
-    gap: 20px;
-    margin-top: 3%;
-    margin-bottom: 4%;
-  }
-`;
 
 const InfoBox = styled.div`
   background-color: ${(props) => props.theme.infoBoxBackground};

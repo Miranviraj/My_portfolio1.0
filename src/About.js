@@ -25,18 +25,18 @@ const AboutContainer = styled.div`
 const CoverPhoto = styled.div`
   margin-top: -20px;
   width: 100%;
-  height: 300px;
+  height: 350px;
   background: url(${coverPhoto}) no-repeat center center;
   background-size: cover;
   margin-bottom: -100px;
 
   @media (max-width: 768px) {
-    height: 200px;
+    height: 150px;
     margin-bottom: -50px;
   }
 
   @media (max-width: 480px) {
-    height: 150px;
+    height: 70px;
     margin-bottom: -30px;
   }
 `;

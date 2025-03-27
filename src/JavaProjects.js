@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLinkedin, faHtml5, faFlutter, faReact, faJava, faPhp } from '@fortawesome/free-brands-svg-icons';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { faJava } from '@fortawesome/free-brands-svg-icons';
+
 import { useNavigate } from 'react-router-dom'; 
 import { useState } from 'react';
 import { faCashRegister, faHotel } from '@fortawesome/free-solid-svg-icons';
@@ -88,9 +88,6 @@ const JavaProjects = () => {
       setLoaded(true);
     }, []);
 
-  const handleNavigation = (path) => {
-    navigate(path);
-  };
 
   return (
     <div className={`app-container ${loaded ? 'fade-in' : ''}`}>

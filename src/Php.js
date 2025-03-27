@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLinkedin, faHtml5, faFlutter, faReact, faJava, faPhp } from '@fortawesome/free-brands-svg-icons';
-import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
-import { faBowlFood, faCashRegister, faCodeFork, faHome, faHotel, faTable } from '@fortawesome/free-solid-svg-icons';
+import {  faPhp } from '@fortawesome/free-brands-svg-icons';
+import { BrowserRouter as useNavigate } from 'react-router-dom';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -71,7 +71,7 @@ const StyledLink = styled.a`
 
 
 const Php = () => {
-  const navigate = useNavigate();
+ 
 
   const [loaded, setLoaded] = useState(false);
   
@@ -79,9 +79,7 @@ const Php = () => {
       setLoaded(true);
     }, []);
 
-  const handleNavigation = (path) => {
-    navigate(path);
-  };
+ 
 
   return (
 
