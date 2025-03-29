@@ -84,6 +84,11 @@ const Button1 = styled.div`
     gap:2px;
   }
 
+   &:hover {
+    transform: scale(1.1);
+  }
+
+
   @media (max-width: 480px) {
    margin-top: 4%;
     width: 200px;
@@ -91,6 +96,11 @@ const Button1 = styled.div`
     padding: 10px;
      gap:2px;
   }
+
+   &:hover {
+    transform: scale(1.1);
+  }
+
 `;
 
 
