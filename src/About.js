@@ -42,7 +42,7 @@ const CoverPhoto = styled.div`
 `;
 
 const ProfilePicture = styled.img`
-  width: 200px;
+  width: 180px;
   height: 200px;
   border-radius: 50%;
   border: 5px solid white;
@@ -50,13 +50,13 @@ const ProfilePicture = styled.img`
   cursor: pointer;
 
   @media (max-width: 768px) {
-    width: 150px;
-    height: 150px;
+    width: 145px;
+    height: 160px;
   }
 
   @media (max-width: 480px) {
     width: 100px;
-    height: 100px;
+    height: 120px;
   }
 `;
 
