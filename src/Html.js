@@ -10,12 +10,12 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 
 const InfoContainer = styled.div`
-display: flex;
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 50px;
-  margin-top: 0%;
-  margin-bottom: 0%;
+  margin-top: -200px;
+  margin-bottom: 8%;
   justify-content: center;
   align-items: center;
   text-align: center;

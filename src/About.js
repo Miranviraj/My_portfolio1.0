@@ -12,6 +12,7 @@ const AboutContainer = styled.div`
   align-items: center;
   text-align: center;
   padding: 20px;
+ 
 
   @media (max-width: 768px) {
     padding: 15px;
@@ -85,6 +86,7 @@ const InfoContainer = styled.div`
   justify-content: center;
   gap: 20px;
   margin-top: 20px;
+  
 
   
     align-items: center;

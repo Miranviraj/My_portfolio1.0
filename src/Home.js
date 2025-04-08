@@ -29,10 +29,10 @@ const ProfilePicture = styled.img`
   width: 160px;
   height: 170px;
   border-radius: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
-  margin-top:-150px;
+  margin-top:-120px;
 
   &:hover {
     transform: scale(1.1);
@@ -155,6 +155,7 @@ const Home = () => {
       <HomeContainer>
         <ProfilePicture src={profilePicture} alt="Profile" />
         <Heading>Hi, I'm Miran Virajith Devinda</Heading>
+        <h2>Front-End Developer</h2>
         <p>A dedicated software engineer with a flair for web and mobile applications development.</p>
         <p>Crafting cutting-edge and scalable applications that drive innovation and efficiency.</p>
         <SlidingWords />

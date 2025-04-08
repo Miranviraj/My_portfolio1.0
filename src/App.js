@@ -30,7 +30,7 @@ const lightTheme = {
   navButtonFontColor: '#000000',
   textGradient: 'linear-gradient(45deg,rgb(0, 0, 0),rgb(0, 4, 227))',
   textColor: 'rgb(3, 0, 67)',
-  infoBoxBackground: 'rgb(185, 228, 255)',
+  infoBoxBackground: 'rgb(155, 213, 250)',
 };
 
 const darkTheme = {
