@@ -207,7 +207,7 @@ font-size: 50px;
 function DownloadButton() {
   const handleDownload = () => {
     const link = document.createElement('a');
-    link.href = 'https://1drv.ms/b/c/363538784efa83c6/Ed0dlIn-gK9IkfeDaDy3UoEBrViK2ACaWLxPkjupAfncKw?e=CGT5ud';
+    link.href = 'https://drive.google.com/file/d/1IFUivTiZE0XEXWJ1CtUhqzAb7_t143mW/view?usp=drive_link';
     link.download = 'filename.ext'; // Optional: specify the filename
     document.body.appendChild(link);
     link.click();
