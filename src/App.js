@@ -19,6 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const lightTheme = {
   background: 'linear-gradient(45deg,rgb(149, 200, 255),rgb(255, 255, 255),rgb(96, 140, 236))',
+  HomeGradient:'linear-gradient(45deg,rgb(97, 159, 224),rgb(255, 255, 255),rgb(97, 159, 224))',
   color: '#000000',
   headerBackground: '#bcbfca',
   footerBackground: '#bcbfca',
@@ -31,10 +32,12 @@ const lightTheme = {
   textGradient: 'linear-gradient(45deg,rgb(0, 0, 0),rgb(0, 4, 227))',
   textColor: 'rgb(3, 0, 67)',
   infoBoxBackground: 'rgb(155, 213, 250)',
+  buttonhoverColor:'rgb(166, 236, 255)',
 };
 
 const darkTheme = {
   background: 'linear-gradient(45deg,rgb(3, 9, 73),rgb(0, 0, 0),rgb(5, 6, 82))',
+  HomeGradient:'linear-gradient(45deg,rgb(0, 8, 91),rgb(0, 0, 0),rgb(0, 8, 91))',
   color: '#ffffff',
   headerBackground: '#323540',
   footerBackground: '#323540',
@@ -47,6 +50,7 @@ const darkTheme = {
   textGradient: 'linear-gradient(45deg,rgb(255, 230, 0),rgb(255, 255, 255))',
   textColor: 'rgb(198, 243, 243)',
   infoBoxBackground: 'rgb(0, 36, 58)', 
+  buttonhoverColor:'rgb(0, 36, 58)', 
 };
 
 const AppContainer = styled.div`

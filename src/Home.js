@@ -14,15 +14,26 @@ const theme = {
 
 };
 
+const PageCenter = styled.div`
+  display: flex;
+  align-items: center;  
+  justify-content: center; 
+  height: 100vh;
+  width: 100vw;
+`;
+
 const HomeContainer = styled.div`
   display: flex;
+   background: ${(props) => props.theme.HomeGradient};
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  width: 100vw;
+  width: 60vw;
   text-align: center;
   overflow: hidden;
+   border-radius: 10%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
 const ProfilePicture = styled.img`
@@ -103,11 +114,7 @@ const SlidingWords = () => {
     return () => clearInterval(interval);
   }, []);
 
-  return (
-    <SlidingWordsContainer>
-      <SlidingWord>{words[index]}</SlidingWord>
-    </SlidingWordsContainer>
-  );
+  
 };
 
 const ButtonContainer = styled.div`
@@ -127,7 +134,7 @@ const Button = styled.button`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   &:hover {
-    background-color: #444;
+    background-color:  ${(props) => props.theme.buttonhoverColor};
     transform: translateY(-3px);
   }
 `;
@@ -152,10 +159,11 @@ const Home = () => {
     <div className={`app-container ${loaded ? 'fade-in' : ''}`}>
 
     <ThemeProvider theme={theme}>
+       <PageCenter>
       <HomeContainer>
         <ProfilePicture src={profilePicture} alt="Profile" />
         <Heading>Hi, I'm Miran Virajith Devinda</Heading>
-        <h2>Front-End Developer</h2>
+        <h2>Full-Stack Developer</h2>
         <p>A dedicated software engineer with a flair for web and mobile applications development.</p>
         <p>Crafting cutting-edge and scalable applications that drive innovation and efficiency.</p>
         <SlidingWords />
@@ -165,6 +173,7 @@ const Home = () => {
         </ButtonContainer>
       
       </HomeContainer>
+      </PageCenter>
     </ThemeProvider>
     </div>
   );
