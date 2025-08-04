@@ -207,7 +207,7 @@ font-size: 50px;
 function DownloadButton() {
   const handleDownload = () => {
     const link = document.createElement('a');
-    link.href = 'https://drive.google.com/file/d/1GmfbnWGRFajdrFFApyV4M-kYMDw1Jt0Q/view?usp=sharing';
+    link.href = 'https://drive.google.com/file/d/1FuAX813M9dh2-OkWe4DxGkpEaKA9IdZ1/view?usp=sharing';
 
     link.download = 'filename.ext'; // Optional: specify the filename
     document.body.appendChild(link);
@@ -276,7 +276,7 @@ const About = () => {
         </InfoBox>
         <InfoBox>
           <h2>Current Projects</h2>
-          <p>Currently, I'm working on an AI-driven Smart Apparel Management Web Application, a Tuition Management mobile application (Back-end), and researching my upcoming project (Augmented Reality Empowered Ancient Ruins Virtually Reconstructing Application).</p>
+          <p>Currently, I'm working on an AI-driven Smart Apparel Management Web Application, a Zencycle_mental_health_ mobile application , and researching my upcoming project (Augmented Reality Empowered Ancient Ruins Virtually Reconstructing Application).</p>
         </InfoBox>
       </InfoContainer>
       <SocialLinks>

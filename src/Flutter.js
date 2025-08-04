@@ -5,16 +5,17 @@ import { faLinkedin, faHtml5, faFlutter, faReact, faJava, faPhp } from '@fortawe
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { faInstitution } from '@fortawesome/free-solid-svg-icons/faInstitution';
-import { faDog, faPaw } from '@fortawesome/free-solid-svg-icons';
+import { faBrain, faDog, faPaw } from '@fortawesome/free-solid-svg-icons';
 import { useEffect} from 'react';
 import { useState } from 'react';
+import { faWalking } from '@fortawesome/free-solid-svg-icons/faWalking';
 
 const InfoContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 50px;
-  margin-top: -200px;
+  margin-top: -100px;
   margin-bottom: 8%;
 
   @media (max-width: 768px) {
@@ -37,7 +38,7 @@ const InfoBox = styled.div`
   border: 3px;
   border-radius: 10px;
   width: 500px;
-  height: 200px;
+  height: 150px;
   border: 2px solid ${(props) => props.theme.color};
  box-shadow: 0 4px 8px ${(props) => props.theme.scolor};
 
@@ -62,8 +63,8 @@ const InfoBox = styled.div`
 
 
 const StyledLink = styled.a`
-  text-decoration: none; /* Remove underline */
-  color: inherit; /* Inherit text color */
+  text-decoration: none; 
+  color: inherit;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,7 +92,7 @@ const [loaded, setLoaded] = useState(false);
       <div className="table-container">
         
         <table>
-          <tr><td>
+          <tr><td styles="top:50px">
           <h1>Flutter Projects <FontAwesomeIcon icon={faFlutter} /></h1>
             
             </td></tr>
@@ -100,11 +101,11 @@ const [loaded, setLoaded] = useState(false);
             <StyledLink href="https://github.com/Miranviraj/Tution_management_system" target="_blank" rel="noopener noreferrer">
             <InfoBox>
             <h3>
-                  Tution Management Mobile Application(Ongoing) <FontAwesomeIcon icon={faInstitution} />
+                  Tution Management Mobile Application <FontAwesomeIcon icon={faInstitution} />
                  </h3>
 
                  <p>
-currently Im creating A Mobile application with using Flutter for better responsiveness and interactive user experience
+ A Mobile application with using Flutter for better responsiveness and interactive user experience
  System include Features to manage student details,Attendence details,Payment details and also feature  
  For mesege sending (student reports ) 
 
@@ -113,6 +114,40 @@ currently Im creating A Mobile application with using Flutter for better respons
                  </InfoBox>
               </StyledLink>
             </td>
+                    <td>
+            <StyledLink href="https://github.com/Miranviraj/Employee_management_Mobile_App" target="_blank" rel="noopener noreferrer">
+            <InfoBox>
+            <h3>
+                  Employee Management System  <FontAwesomeIcon icon={faWalking} />
+                 </h3>
+
+                 <p>
+ A Mobile application for Employee management (Registration,Admin dashboard,Collecting Feedbacks) with using Flutter for better responsiveness and interactive user experience
+
+                 </p>
+                 </InfoBox>
+              </StyledLink>
+            </td>
+          </tr>
+          <tr>
+                    <td>
+            <StyledLink href="https://github.com/Miranviraj/Zencycle_mental_health_mobile_Application" target="_blank" rel="noopener noreferrer">
+            <InfoBox>
+            <h3>
+                  Zencycle-Mental Health and well being Mobile Application   (Ongoing)<FontAwesomeIcon icon={faBrain} />
+                 </h3>
+
+                 <p>
+ A Mobile application for Mental Health and well being with using Flutter for better responsiveness and interactive user experience
+ System include Features to  habit and mood tracking,personal jurnal,meditation,mind relaxing exercises
+
+
+                 </p>
+                 </InfoBox>
+              </StyledLink>
+            </td>
+
+
           </tr>
         </table>
       </div>

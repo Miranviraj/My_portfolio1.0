@@ -155,8 +155,8 @@ const Hamburger = styled.div`
 `;
 
 function App() {
-  const [theme, setTheme] = useState(lightTheme);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [theme, setTheme] = useState(darkTheme); // Default to dark
+  const [isDarkMode, setIsDarkMode] = useState(true); // Default to dark
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleTheme = () => {
