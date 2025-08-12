@@ -16,6 +16,9 @@ import './App.css';
 import Switch from 'react-switch';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useRef } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 const lightTheme = {
   background: 'linear-gradient(45deg,rgb(149, 200, 255),rgb(255, 255, 255),rgb(96, 140, 236))',
