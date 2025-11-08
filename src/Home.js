@@ -229,7 +229,7 @@ export default function Home({ isDarkMode, darkTheme, lightTheme }) {
           </Paragraph>
 
           <Paragraph ref={addToRefs(paragraphRefs)}>
-            Crafting cutting-edge and scalable applications that drive innovation and efficiency.
+            Crafting cutting-edge and scalable Applications that drive innovation and efficiency.
           </Paragraph>
 
           <SlidingWordsContainer>
