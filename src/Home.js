@@ -149,6 +149,13 @@ export default function Home({ isDarkMode, darkTheme, lightTheme }) {
   useEffect(() => {
     const headingEl = headingRef.current;
     const headingText = headingEl?.textContent?.trim() || "";
+    
+    // Copy refs to local variables for cleanup
+    const profileElement = profileRef.current;
+    const paragraphElements = [...paragraphRefs.current];
+    const buttonElements = [...buttonRefs.current];
+    const wordElement = wordRef.current;
+    
     if (headingEl) {
       headingEl.textContent = "";
       const chars = Array.from(headingText);
@@ -159,8 +166,8 @@ export default function Home({ isDarkMode, darkTheme, lightTheme }) {
       });
     }
 
-    if (wordRef.current) {
-      wordRef.current.textContent = words[0];
+    if (wordElement) {
+      wordElement.textContent = words[0];
       const swapWord = () => {
         if (wordRef.current) {
           gsap.to(wordRef.current, {
@@ -188,11 +195,11 @@ export default function Home({ isDarkMode, darkTheme, lightTheme }) {
     return () => {
       if (swapIntervalRef.current) clearInterval(swapIntervalRef.current);
       gsap.killTweensOf([
-        profileRef.current,
+        profileElement,
         headingEl,
-        ...paragraphRefs.current,
-        ...buttonRefs.current,
-        wordRef.current,
+        ...paragraphElements,
+        ...buttonElements,
+        wordElement,
       ]);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -229,7 +236,7 @@ export default function Home({ isDarkMode, darkTheme, lightTheme }) {
           </Paragraph>
 
           <Paragraph ref={addToRefs(paragraphRefs)}>
-            Crafting cutting-edge and scalable Applications that drive innovation and efficiency.
+            Crafting cutting-edge and scalable applications that drive innovation and efficiency.
           </Paragraph>
 
           <SlidingWordsContainer>
