@@ -25,7 +25,7 @@ const ProfilePicture = styled.img`
   width: 300px;
   height: 800px;
   object-fit: cover;
-  filter:  ${(p) => p.theme.dsColor};
+  filter: ${(p) => p.theme.dsColor};
   transform-origin: center;
   cursor: default;
 
@@ -34,7 +34,6 @@ const ProfilePicture = styled.img`
     height: 120px;
   }
 `;
-
 
 const PageCenter = styled.div`
   display: flex;
@@ -78,14 +77,14 @@ const Heading = styled.h1`
 `;
 
 const Sub = styled.h2`
-  color:${(p) => p.theme.textColor};
+  color: ${(p) => p.theme.textColor};
   font-size: 18px;
   margin: 8px 0;
   font-weight: 600;
 `;
 
 const Paragraph = styled.p`
-  color:${(p) => p.theme.textColor};
+  color: ${(p) => p.theme.textColor};
   max-width: 760px;
   margin: 6px 0;
   line-height: 1.45;
@@ -108,6 +107,7 @@ const SlidingWord = styled.div`
   background: ${(p) => p.theme.textGradient};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
   font-weight: 700;
 `;
 
@@ -130,7 +130,7 @@ const Button = styled.button`
   outline: none;
 `;
 
-export default function Home({ isDarkMode, toggleTheme, darkTheme, lightTheme }) {
+export default function Home({ isDarkMode, darkTheme, lightTheme }) {
   const navigate = useNavigate();
   const profileRef = useRef(null);
   const headingRef = useRef(null);
@@ -149,32 +149,38 @@ export default function Home({ isDarkMode, toggleTheme, darkTheme, lightTheme })
   useEffect(() => {
     const headingEl = headingRef.current;
     const headingText = headingEl?.textContent?.trim() || "";
-    headingEl.textContent = "";
-    const chars = Array.from(headingText);
-    chars.forEach((ch) => {
-      const span = document.createElement("span");
-      span.textContent = ch === " " ? "\u00A0" : ch;
-      headingEl.appendChild(span);
-    });
+    if (headingEl) {
+      headingEl.textContent = "";
+      const chars = Array.from(headingText);
+      chars.forEach((ch) => {
+        const span = document.createElement("span");
+        span.textContent = ch === " " ? "\u00A0" : ch;
+        headingEl.appendChild(span);
+      });
+    }
 
     if (wordRef.current) {
       wordRef.current.textContent = words[0];
       const swapWord = () => {
-        gsap.to(wordRef.current, {
-          y: -20,
-          opacity: 0,
-          duration: 0.35,
-          ease: "power2.in",
-          onComplete: () => {
-            indexRef.current = (indexRef.current + 1) % words.length;
-            wordRef.current.textContent = words[indexRef.current];
-            gsap.fromTo(
-              wordRef.current,
-              { y: 20, opacity: 0 },
-              { y: 0, opacity: 1, duration: 0.45, ease: "power2.out" }
-            );
-          },
-        });
+        if (wordRef.current) {
+          gsap.to(wordRef.current, {
+            y: -20,
+            opacity: 0,
+            duration: 0.35,
+            ease: "power2.in",
+            onComplete: () => {
+              if (wordRef.current) {
+                indexRef.current = (indexRef.current + 1) % words.length;
+                wordRef.current.textContent = words[indexRef.current];
+                gsap.fromTo(
+                  wordRef.current,
+                  { y: 20, opacity: 0 },
+                  { y: 0, opacity: 1, duration: 0.45, ease: "power2.out" }
+                );
+              }
+            },
+          });
+        }
       };
       swapIntervalRef.current = setInterval(swapWord, 2200);
     }
@@ -197,6 +203,7 @@ export default function Home({ isDarkMode, toggleTheme, darkTheme, lightTheme })
     if (!el) return;
     gsap.to(el, { scale: 1.04, y: -4, duration: 0.15, ease: "power2.out" });
   };
+  
   const handleBtnLeave = (idx) => {
     const el = buttonRefs.current[idx];
     if (!el) return;
