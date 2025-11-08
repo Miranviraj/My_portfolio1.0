@@ -36,10 +36,11 @@ const lightTheme = {
   textColor: 'rgb(3, 0, 67)',
   infoBoxBackground: 'rgb(155, 213, 250)',
   buttonhoverColor:'rgb(166, 236, 255)',
+  dsColor: 'drop-shadow(0 0 20px rgba(142, 168, 176, 0.8))',
 };
 
 const darkTheme = {
-  background: 'linear-gradient(45deg,rgb(3, 9, 73),rgb(0, 0, 0),rgb(5, 6, 82))',
+  background: 'linear-gradient(45deg,rgba(0, 0, 0, 1),rgba(9, 0, 91, 1),rgba(0, 0, 22, 1))',
   HomeGradient:'linear-gradient(45deg,rgb(0, 8, 91),rgb(0, 0, 0),rgb(0, 8, 91))',
   color: '#ffffff',
   headerBackground: '#323540',
@@ -50,10 +51,12 @@ const darkTheme = {
   buttonFontColor: '#ffffff',
   navButtonBackground: '#19203d',
   navButtonFontColor: '#ffffff',
-  textGradient: 'linear-gradient(45deg,rgb(255, 230, 0),rgb(255, 255, 255))',
+  textGradient: 'linear-gradient(45deg,rgba(255, 149, 0, 1),rgb(255, 255, 255))',
   textColor: 'rgb(198, 243, 243)',
   infoBoxBackground: 'rgb(0, 36, 58)', 
   buttonhoverColor:'rgb(0, 36, 58)', 
+  dsColor: 'drop-shadow(0 0 20px rgba(0, 0, 0, 0.8))',
+
 };
 
 const AppContainer = styled.div`
@@ -208,7 +211,18 @@ function App() {
               <Route path="/RReact" element={<RReact />} />
               <Route path="/Flutter" element={<Flutter />} />
               <Route path="/Php" element={<Php />} />
-              <Route path="/" element={<Home />} />
+<Route
+  path="/"
+  element={
+    <Home
+      isDarkMode={isDarkMode}
+      toggleTheme={toggleTheme}
+      darkTheme={darkTheme}
+      lightTheme={lightTheme}
+    />
+  }
+/>
+
               <Route path="/about" element={<About />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/contact" element={<Contact />} />
