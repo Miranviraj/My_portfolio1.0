@@ -13,6 +13,7 @@ import Html from './Html';
 import Flutter from './Flutter';
 import RReact from './RReact';
 import Php from './Php';
+import TechRain from './TechRain';
 import './App.css';
 import './Cursor.css';
 
@@ -73,6 +74,7 @@ function App() {
     <Router>
       <ScrollToTop />
       <CustomCursor />
+      <TechRain />
       <Navbar />
       <div className="page-wrapper">
         <Routes>
