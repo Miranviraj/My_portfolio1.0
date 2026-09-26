@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFlutter } from '@fortawesome/free-brands-svg-icons';
-import { faInstitution, faWalking, faBrain } from '@fortawesome/free-solid-svg-icons';
+import { faInstitution, faWalking, faBrain, faCity } from '@fortawesome/free-solid-svg-icons';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import './SubProject.css';
@@ -33,6 +33,18 @@ export default function Flutter() {
       </div>
 
       <div className="subproject-grid">
+
+        <a href="https://github.com/Miranviraj/AR_Project" target="_blank" rel="noopener noreferrer" className="subproject-card glass">
+          <h3 className="subproject-card-title">
+            Augmented Reality empowered Ancient Ruins Virtually Reconstructing Mobile application <FontAwesomeIcon icon={faCity} />
+          </h3>
+          <div className="subproject-card-desc">
+            <p>This is a Flutter-based mobile application that reconstructs ancient ruins using augmented reality (AR). Users can scan 3D models of ruins and view them in real-time through their phone's camera, overlaying the digital reconstruction onto the physical environment.</p>
+          </div>
+          <div className="subproject-card-link">
+            View on GitHub <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+          </div>
+        </a>
         <a href="https://github.com/Miranviraj/Tution_management_system" target="_blank" rel="noopener noreferrer" className="subproject-card glass">
           <h3 className="subproject-card-title">
             Tution Management Mobile Application <FontAwesomeIcon icon={faInstitution} />
