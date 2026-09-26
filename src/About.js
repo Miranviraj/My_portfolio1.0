@@ -1,299 +1,156 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
-import profilePicture from './Images/profile.jpg'; 
-import coverPhoto from './Images/cover.jpg'; 
-import { useEffect } from 'react';
+import React, { useRef } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import profilePicture from './Images/profile.png';
+import './About.css';
 
-const AboutContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
- 
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-  @media (max-width: 768px) {
-    padding: 15px;
-  }
-
-  @media (max-width: 480px) {
-    padding: 10px;
-  }
-`;
-
-const CoverPhoto = styled.div`
-  margin-top: -20px;
-  width: 100%;
-  height: 350px;
-  background: url(${coverPhoto}) no-repeat center center;
-  background-size: cover;
-  margin-bottom: -100px;
-
-  @media (max-width: 768px) {
-    height: 150px;
-    margin-bottom: -50px;
-  }
-
-  @media (max-width: 480px) {
-    height: 70px;
-    margin-bottom: -30px;
-  }
-`;
-
-const ProfilePicture = styled.img`
-  width: 180px;
-  height: 200px;
-  border-radius: 50%;
-  border: 5px solid white;
-  margin-bottom: 10px;
-  cursor: pointer;
-
-  @media (max-width: 768px) {
-    width: 145px;
-    height: 160px;
-  }
-
-  @media (max-width: 480px) {
-    width: 100px;
-    height: 120px;
-  }
-`;
-
-const Modal = styled.div`
-  display: ${(props) => (props.show ? 'flex' : 'none')};
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-`;
-
-const ModalContent = styled.img`
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 10px;
-`;
-
-const InfoContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
+export default function About() {
+  const containerRef = useRef(null);
   
+  useGSAP(() => {
+    // Infinite Marquee
+    gsap.to('.marquee-text', {
+      xPercent: -50,
+      ease: 'none',
+      duration: 15,
+      repeat: -1
+    });
 
-  
-    align-items: center;
-  }
+    // Parallax effect on image
+    gsap.to('.about-image', {
+      yPercent: 15,
+      scale: 1.1,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".about-image-wrapper",
+        start: "top bottom", 
+        end: "bottom top",
+        scrub: true
+      }
+    });
 
-  @media (max-width: 480px) {
-    gap: 10px;
-    flex-direction: column;
-  }
-`;
+    // Staggered reveal for text elements
+    gsap.fromTo('.reveal-text', 
+      { y: 50, opacity: 0, rotateX: -30 },
+      { 
+        y: 0, opacity: 1, rotateX: 0, 
+        duration: 1.2, 
+        stagger: 0.15, 
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.about-content',
+          start: 'top 75%',
+        }
+      }
+    );
 
-const InfoBox = styled.div`
-  background-color: ${(props) => props.theme.infoBoxBackground};
-  color: ${(props) => props.theme.color};
-  padding: 20px;
-  border-radius: 10px;
-  width: 600px;
-  height: 200px;
-  box-shadow: 0 4px 8px ${(props) => props.theme.scolor};
+    // Magnetic Skills Stagger
+    gsap.fromTo('.skill-tag', 
+      { scale: 0, opacity: 0, rotation: 10 },
+      { 
+        scale: 1, opacity: 1, rotation: 0,
+        duration: 0.8, 
+        stagger: 0.05, 
+        ease: 'back.out(2)',
+        scrollTrigger: {
+          trigger: '.skills-container',
+          start: 'top 85%',
+        }
+      }
+    );
+  }, { scope: containerRef });
 
-  
-   &:hover {
-    transform: scale(1.1);
-  }
+  const skills = [
+    "JavaScript", "TypeScript", "React.js", "Next.js", "Flutter", 
+    "Dart", "Java", "Spring Boot", "PHP", "Laravel", "Node.js", 
+    "Express", "MongoDB", "MySQL", "Tailwind CSS", "GSAP"
+  ];
 
-
-  @media (max-width: 768px) {
-    width: 100%;
-    height: auto;
-  }
-
-  @media (max-width: 480px) {
-    width: 100%;
-    height: auto;
-    padding: 15px;
-  }
-`;
-
-const ResumeButton = styled.button`
-  padding: 10px 20px;
-  margin-top: 5px;
-  background-color: #0073b1;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: #005582;
-  }
-
-  @media (max-width: 768px) {
-    padding: 8px 16px;
-  }
-
-  @media (max-width: 480px) {
-    padding: 6px 12px;
-  }
-`;
-
-const SocialLinks = styled.div`
-  display: flex;
-  gap: 20px;
-  margin-top: 20px;
-
-  a {
-    color: #0073b1;
-    font-size: 24px;
-    transition: color 0.3s;
-
-    &:hover {
-      color: #005582;
-    }
-  }
-
-  @media (max-width: 768px) {
-    gap: 15px;
-
-    a {
-      font-size: 20px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    gap: 10px;
-
-    a {
-      font-size: 16px;
-    }
-  }
-`;
-
-const Heading2 = styled.h1`
-color: ${(props) => props.theme.textColor};
-transition: color 0.3s ease;
-font-size: 50px;
- font-family: Bahnschrift SemiBold;
- 
- @media (max-width: 768px) {
-   
-
-   
-      font-size: 30px;
-    }
- 
-
-  @media (max-width: 480px) {
-  font-size: 20px;
+  const handleMagnetic = (e) => {
+    const el = e.currentTarget;
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
     
-    
-    }
+    gsap.to(el, {
+      x: x * 0.4,
+      y: y * 0.4,
+      duration: 0.3,
+      ease: 'power2.out'
+    });
+  };
 
-
-`;
-
-
-function DownloadButton() {
-  const handleDownload = () => {
-    const link = document.createElement('a');
-    link.href = 'https://drive.google.com/file/d/1FuAX813M9dh2-OkWe4DxGkpEaKA9IdZ1/view?usp=sharing';
-
-    link.download = 'filename.ext'; // Optional: specify the filename
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const handleMagneticLeave = (e) => {
+    gsap.to(e.currentTarget, {
+      x: 0,
+      y: 0,
+      duration: 0.7,
+      ease: 'elastic.out(1, 0.3)'
+    });
   };
 
   return (
-    <ResumeButton onClick={handleDownload}>Download Resume</ResumeButton>
-  );
-}
-
-const About = () => {
-
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    setLoaded(true);
-  }, []);
-
-  const [showModal, setShowModal] = useState(false);
-
-  const handleProfileClick = () => {
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-
-  return (
-
-    <div className={`app-container ${loaded ? 'zoom-in' : ''}`}>
-    <AboutContainer>
-      <CoverPhoto />
-      <ProfilePicture src={profilePicture} alt="Profile" onClick={handleProfileClick} />
-      <Heading2>Miran Virajith Devinda</Heading2>
+    <div className="about-section container" ref={containerRef}>
+      <div className="marquee-container">
+        <div className="marquee-text">
+          FULL STACK DEVELOPER • CREATIVE CODER • SOFTWARE ENGINEER • UI/UX ENTHUSIAST • FULL STACK DEVELOPER • CREATIVE CODER • SOFTWARE ENGINEER • UI/UX ENTHUSIAST •
+        </div>
+      </div>
       
-     
-    <div className={`app-container ${loaded ? 'pulse' : ''}`}> <DownloadButton /></div>
-
-      <InfoContainer>
-        <InfoBox>
-          <h2>Education</h2>
-          <p>BSc (Hons) in Software Engineering at CINEC Campus, currently in my 3rd year.</p>
-        </InfoBox>
-        <InfoBox>
-          <h2>Skills</h2>
-          <p>Enthusiastic about crafting scalable, high-performance web,
-             Java, and mobile applications using cutting-edge technologies. 
-             Driven by a strong sense of innovation and self-motivation, I excel in Java,
-              React, JavaScript, Node.js, Firebase, and Flutter. My critical thinking skills
-               enable me to tackle complex problems effectively, while my collaborative spirit
-                ensures successful teamwork and project execution. Always eager to push boundaries
-                 and bring fresh ideas to life, I thrive in dynamic environments
-             where creativity and technical expertise intersect.</p>
-        </InfoBox>
-        <InfoBox>
-          <h2>Interests</h2>
-          <p>I'm passionate about web development and mobile application development, 
-            constantly exploring new technologies and frameworks to enhance my skills. Currently, 
-            I'm diving into the fascinating world of AI and machine learning, eager to understand and
-             leverage these powerful tools for future projects. My curiosity drives me to learn from every
-             experience and source, always seeking to expand my knowledge and innovate.
-          </p>
-        </InfoBox>
-        <InfoBox>
-          <h2>Current Projects</h2>
-          <p>Currently, I'm working on an AI-driven Smart Apparel Management Web Application, a Zencycle_mental_health_ mobile application , and researching my upcoming project (Augmented Reality Empowered Ancient Ruins Virtually Reconstructing Application).</p>
-        </InfoBox>
-      </InfoContainer>
-      <SocialLinks>
-        <a href="https://www.linkedin.com/in/miran-virajith-devinda-8b5094294" target="_blank" rel="noopener noreferrer">
-          <FontAwesomeIcon icon={faLinkedin} />
-        </a>
-        <a href="https://github.com/Miranviraj?tab=overview&from=2025-02-01&to=2025-02-28" target="_blank" rel="noopener noreferrer">
-          <FontAwesomeIcon icon={faGithub} />
-        </a>
-      </SocialLinks>
-
-      <Modal show={showModal} onClick={handleCloseModal}>
-        <ModalContent src={profilePicture} alt="Profile" />
-      </Modal>
-    </AboutContainer>
+      <div className="about-grid">
+        
+        <div className="about-visual">
+          <div className="about-image-wrapper interactive">
+            <div className="image-reveal-mask"></div>
+            <img src={profilePicture} alt="Profile" className="about-image" />
+            <div className="about-image-overlay"></div>
+          </div>
+          <div className="experience-badge glass">
+            <span className="years text-accent-gradient">3+</span>
+            <span className="exp-text">Years of<br/>Experience</span>
+          </div>
+        </div>
+        
+        <div className="about-content">
+          <h2 className="section-title text-gradient reveal-text">About Me</h2>
+          <h3 className="about-subtitle reveal-text">Crafting digital experiences with passion & precision.</h3>
+          
+          <div className="about-paragraphs">
+            <p className="reveal-text">
+              I am a passionate Full-Stack Developer with a deep love for building intuitive, 
+              scalable, and high-performance applications. I thrive in environments where I can 
+              bridge the gap between design and engineering, combining my technical expertise 
+              with an eye for aesthetics.
+            </p>
+            <p className="reveal-text">
+              Over the years, I've worked across various modern technology stacks, ranging from 
+              front-end frameworks like React and Flutter to robust back-end systems using Node.js, 
+              Java, and PHP. My goal is to build products that not only work flawlessly but provide 
+              a memorable user experience.
+            </p>
+          </div>
+          
+          <div className="skills-section reveal-text">
+            <h4 className="skills-title">My Tech Stack</h4>
+            <div className="skills-container">
+              {skills.map((skill, index) => (
+                <div 
+                  key={index} 
+                  className="skill-tag glass interactive"
+                  onMouseMove={handleMagnetic}
+                  onMouseLeave={handleMagneticLeave}
+                >
+                  {skill}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        
+      </div>
     </div>
   );
-};
-
-export default About;
+}

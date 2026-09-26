@@ -1,129 +1,64 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {  faReact } from '@fortawesome/free-brands-svg-icons';
-
+import { faReact } from '@fortawesome/free-brands-svg-icons';
 import { faMedal, faTshirt } from '@fortawesome/free-solid-svg-icons';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import './SubProject.css';
 
-import { useNavigate } from 'react-router-dom';
+export default function RReact() {
+  const containerRef = useRef(null);
 
-
-const AboutContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-
-  @media (max-width: 768px) {
-    padding: 15px;
-  }
-
-  @media (max-width: 480px) {
-    padding: 10px;
-  }
-`;
-
-
-const InfoContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 100px;
-  margin-bottom:25%;
-
-  
-    align-items: center;
-  }
-
-  @media (max-width: 480px) {
-    gap: 10px;
-    flex-direction: column;
-  }
-`;
-
-const InfoBox = styled.div`
-  background-color: ${(props) => props.theme.infoBoxBackground};
-  color: ${(props) => props.theme.color};
-  padding: 20px;
-  border-radius: 10px;
-  width: 600px;
-  height: 200px;
-  box-shadow: 0 4px 8px ${(props) => props.theme.scolor};
-
-
-  
-   &:hover {
-    transform: scale(1.1);
-  }
-
-
-  @media (max-width: 768px) {
-    width: 100%;
-    height: auto;
-  }
-
-  @media (max-width: 480px) {
-    width: 100%;
-    height: auto;
-    padding: 15px;
-  }
-`;
-
-
-const StyledLink = styled.a`
-  text-decoration: none; /* Remove underline */
-  color: inherit; /* Inherit text color */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const RReact = () => {
-  const navigate = useNavigate();
-
-  const [loaded, setLoaded] = useState(false);
-  
-    useEffect(() => {
-      setLoaded(true);
-    }, []);
-
- 
+  useGSAP(() => {
+    gsap.fromTo('.subproject-header', { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' });
+    gsap.fromTo('.subproject-card', {
+      y: 50,
+      opacity: 0
+    }, {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: 'power3.out',
+      delay: 0.1
+    });
+  }, { scope: containerRef });
 
   return (
-    <div className={`app-container ${loaded ? 'fade-in' : ''}`}>
-    <AboutContainer>
-         <h1 >React Projects <FontAwesomeIcon icon={faReact} /></h1>
-    <InfoContainer>
-    <StyledLink href="https://www.figma.com/design/ukjvjGtSQwOlBzApE2nEyD/Untitled?node-id=0-1&t=3qhys5u6h6NRwEnK-0" target="_blank" rel="noopener noreferrer">
-      <InfoBox>
-      <h3>
-                      Smart Apparel Management System(Designing phase) <FontAwesomeIcon icon={faTshirt} />
-      </h3>
-            <p>
-                      We are currently developing an innovative AI-integrated web application as a group project to revolutionize the apparel industry. Built using React, this cutting-edge platform is designed to optimize operations with features like smart inventory management, real-time production tracking, AI-driven fabric cutting optimization, and an interactive t-shirt customization tool. Our solution empowers apparel companies to enhance efficiency, reduce waste, and embrace next-level customization. By seamlessly blending technology and fashion, we are shaping the future of smart apparel management.
-            </p>
-        </InfoBox>
-        </StyledLink>
-        <StyledLink href="https://github.com/Miranviraj/My_portfolio1.0" target="_blank" rel="noopener noreferrer">
-        <InfoBox>
-        <h3>
-                      Portfolio Website (This) <FontAwesomeIcon icon={faMedal} />
-                    </h3>
-                    <p>
-                      This portfolio is a testament to creativity and technical prowess, showcasing a diverse array of skills and accomplishments. It features a clean, modern design with an intuitive layout that makes navigation a breeze. Interactive elements and responsive design ensure a seamless experience across all devices. Each section is thoughtfully organized, highlighting key achievements and expertise in a visually appealing manner. Whether you're exploring detailed descriptions or admiring the aesthetic presentation, this portfolio offers an engaging and professional glimpse into the creator's capabilities.
-                    </p>
-        </InfoBox>
-        </StyledLink>
-          
+    <div className="subproject-section container" ref={containerRef}>
+      <div className="subproject-header">
+        <h2 className="subproject-title text-gradient">
+          React Projects <FontAwesomeIcon icon={faReact} style={{ color: '#61DAFB' }} />
+        </h2>
+      </div>
 
-    </InfoContainer>
-  </AboutContainer>
-  </div>
+      <div className="subproject-grid">
+        <a href="https://www.figma.com/design/ukjvjGtSQwOlBzApE2nEyD/Untitled?node-id=0-1&t=3qhys5u6h6NRwEnK-0" target="_blank" rel="noopener noreferrer" className="subproject-card glass">
+          <h3 className="subproject-card-title">
+            Smart Apparel Management System (Designing phase) <FontAwesomeIcon icon={faTshirt} />
+          </h3>
+          <div className="subproject-card-desc">
+            <p>We are currently developing an innovative AI-integrated web application as a group project to revolutionize the apparel industry. Built using React, this cutting-edge platform is designed to optimize operations with features like smart inventory management, real-time production tracking, AI-driven fabric cutting optimization, and an interactive t-shirt customization tool.</p>
+            <p>Our solution empowers apparel companies to enhance efficiency, reduce waste, and embrace next-level customization. By seamlessly blending technology and fashion, we are shaping the future of smart apparel management.</p>
+          </div>
+          <div className="subproject-card-link">
+            View on Figma <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+          </div>
+        </a>
+
+        <a href="https://github.com/Miranviraj/My_portfolio1.0" target="_blank" rel="noopener noreferrer" className="subproject-card glass">
+          <h3 className="subproject-card-title">
+            Portfolio Website (This) <FontAwesomeIcon icon={faMedal} />
+          </h3>
+          <div className="subproject-card-desc">
+            <p>This portfolio is a testament to creativity and technical prowess, showcasing a diverse array of skills and accomplishments. It features a clean, modern design with an intuitive layout that makes navigation a breeze.</p>
+            <p>Interactive elements and responsive design ensure a seamless experience across all devices. Each section is thoughtfully organized, highlighting key achievements and expertise in a visually appealing manner. Whether you're exploring detailed descriptions or admiring the aesthetic presentation, this portfolio offers an engaging and professional glimpse into the creator's capabilities.</p>
+          </div>
+          <div className="subproject-card-link">
+            View on GitHub <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+          </div>
+        </a>
+      </div>
+    </div>
   );
-};
-
-export default RReact;
+}

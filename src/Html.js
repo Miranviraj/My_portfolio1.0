@@ -1,125 +1,74 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {  faHtml5 } from '@fortawesome/free-brands-svg-icons';
-
-import { useNavigate } from 'react-router-dom';
-
+import { faHtml5 } from '@fortawesome/free-brands-svg-icons';
 import { faPaw } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import './SubProject.css';
 
-const InfoContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 50px;
-  margin-top: -200px;
-  margin-bottom: 8%;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+export default function Html() {
+  const containerRef = useRef(null);
 
-  @media (max-width: 768px) {
-    gap: 30px;
-    margin-top: 5%;
-    margin-bottom: 6%;
-  }
+  useGSAP(() => {
+    gsap.fromTo('.subproject-header', { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' });
+    gsap.fromTo('.subproject-card', {
+      y: 80,
+      opacity: 0,
+      rotateX: 15
+    }, {
+      y: 0,
+      opacity: 1,
+      rotateX: 0,
+      duration: 1,
+      stagger: 0.2,
+      ease: 'power3.out',
+      delay: 0.1
+    });
+  }, { scope: containerRef });
 
-  @media (max-width: 480px) {
-    gap: 20px;
-    margin-top: 3%;
-    margin-bottom: 4%;
-  }
-`;
-
-
-const InfoBox = styled.div`
-  background-color: ${(props) => props.theme.infoBoxBackground};
-  color: ${(props) => props.theme.color};
-  padding: 20px;
-  border: 3px;
-  border-radius: 10px;
-  width: 500px;
-  height: 100px;
-  border: 2px solid ${(props) => props.theme.color};
- box-shadow: 0 4px 8px ${(props) => props.theme.scolor};
-
-  @media (max-width: 768px) {
-    width: 400px;
-    height: 80px;
-    padding: 15px;
-      height: 150px;
-  }
-
-  @media (max-width: 480px) {
-    width: 300px;
-    height: 60px;
-    padding: 10px;
-      height: 150px;
-  }
-
-  
-   &:hover {
-    transform: scale(1.1);
-  }
-
-`;
-
-
-
-const StyledLink = styled.a`
-  text-decoration: none; /* Remove underline */
-  color: inherit; /* Inherit text color */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Html = () => {
-  const navigate = useNavigate();
-
-  const [loaded, setLoaded] = useState(false);
-  
-    useEffect(() => {
-      setLoaded(true);
-    }, []);
-
-  const handleNavigation = (path) => {
-    navigate(path);
+  const handleMouseMove = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    card.style.setProperty('--mouse-x', `${x}px`);
+    card.style.setProperty('--mouse-y', `${y}px`);
   };
 
-  return (<InfoContainer>
-    <div className={`app-container ${loaded ? 'fade-in' : ''}`}>
-    <div className="center-table">
-      <div className="table-container">
-        <table>
-          <tr>
-            <td>
-              <h1>
-                HTML Projects <FontAwesomeIcon icon={faHtml5} />
-              </h1>
-            </td>
-          </tr>
-          <tr>
-            <td> <StyledLink href="https://github.com/Miranviraj/Pet_care" target="_blank" rel="noopener noreferrer">
-              <InfoBox>
-                <h3>
-                  Website for Pet care Center <FontAwesomeIcon icon={faPaw} />
-                </h3>
-                <p>
-                  Developed a responsive and user-friendly website for a pet care center including services details, facilities, and contact details.
-                </p>
-              </InfoBox>
-              </StyledLink>
-            </td>
-          </tr>
-        </table>
+  const handleMouseLeave = (e) => {
+    const card = e.currentTarget;
+    card.style.setProperty('--mouse-x', `-1000px`);
+    card.style.setProperty('--mouse-y', `-1000px`);
+  };
+
+  return (
+    <div className="subproject-section container" ref={containerRef}>
+      <div className="subproject-header">
+        <h2 className="subproject-title text-gradient">
+          HTML Projects <FontAwesomeIcon icon={faHtml5} style={{ color: '#E34F26' }} />
+        </h2>
+      </div>
+
+      <div className="subproject-grid">
+        <a 
+          href="https://github.com/Miranviraj/Pet_care" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="subproject-card glass interactive"
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+        >
+          <h3 className="subproject-card-title">
+            Website for Pet care Center <FontAwesomeIcon icon={faPaw} />
+          </h3>
+          <div className="subproject-card-desc">
+            <p>Developed a responsive and user-friendly website for a pet care center including services details, facilities, and contact details.</p>
+          </div>
+          <div className="subproject-card-link">
+            View on GitHub <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+          </div>
+        </a>
       </div>
     </div>
-    </div>
-    </InfoContainer>
   );
-};
-
-export default Html;
+}

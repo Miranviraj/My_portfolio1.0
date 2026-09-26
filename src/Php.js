@@ -1,118 +1,50 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {  faPhp } from '@fortawesome/free-brands-svg-icons';
-import { BrowserRouter as useNavigate } from 'react-router-dom';
+import { faPhp } from '@fortawesome/free-brands-svg-icons';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
-import './App.css';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import './SubProject.css';
 
-const InfoContainer = styled.div`
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 50px;
-  margin-top: -150px;
-  margin-bottom: 8%;
-  display: flex;
-  flex-direction: column; 
-  min-height: 100vh; 
-  flex: 1;
+export default function Php() {
+  const containerRef = useRef(null);
 
-  @media (max-width: 768px) {
-    gap: 20px;
-    flex-direction: column;
-  }
-
-  @media (max-width: 480px) {
-    gap: 10px;
-    flex-direction: column;
-   
-  }
-`;
-
-const InfoBox1 = styled.div`
-  background-color: ${(props) => props.theme.infoBoxBackground};
-  color: ${(props) => props.theme.color};
-  padding: 20px;
-  border: 3px;
-  border-radius: 10px;
-  width: 500px;
-  height: 200px;
-  border: 2px solid ${(props) => props.theme.color};
- box-shadow: 0 4px 8px ${(props) => props.theme.scolor};
-
-  
-   &:hover {
-    transform: scale(1.1);
-  }
-
-
-  @media (max-width: 768px) {
-    width: auto;
-    height: auto;
-  }
-
-  @media (max-width: 480px) {
-    width: auto;
-    height: auto;
-    padding: 15px;
-  }
-`;
-
-
-const StyledLink = styled.a`
-  text-decoration: none; /* Remove underline */
-  color: inherit; /* Inherit text color */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-
-const Php = () => {
- 
-
-  const [loaded, setLoaded] = useState(false);
-  
-    useEffect(() => {
-      setLoaded(true);
-    }, []);
-
- 
+  useGSAP(() => {
+    gsap.fromTo('.subproject-header', { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' });
+    gsap.fromTo('.subproject-card', {
+      y: 50,
+      opacity: 0
+    }, {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: 'power3.out',
+      delay: 0.1
+    });
+  }, { scope: containerRef });
 
   return (
+    <div className="subproject-section container" ref={containerRef}>
+      <div className="subproject-header">
+        <h2 className="subproject-title text-gradient">
+          PHP Projects <FontAwesomeIcon icon={faPhp} style={{ color: '#777BB4' }} />
+        </h2>
+      </div>
 
-     <InfoContainer>
-    <div className={`app-container ${loaded ? 'fade-in' : ''}`}>
-    <div className="center-table">
-      <div className="table-container">
-        
-        <table>
-          <tr><td>
-          <h1>PHP Projects <FontAwesomeIcon icon={faPhp} /></h1>
-            
-            </td></tr>
-          <tr>
-            <td>
-            <StyledLink href="https://github.com/Miranviraj/TAVOLA-Table_reservation" target="_blank" rel="noopener noreferrer">
-              <InfoBox1>
-                <h3>
-                  Restaurant Table Reservation System <FontAwesomeIcon icon={faHome} />
-                </h3>
-                <p>
-                  Tavola v1.1 is a simple table reservation system created using PHP, providing a straightforward solution for table reservations. Whether it's a romantic dinner, business meeting, or casual get-together with friends, our platform allows you to reserve a table within seconds.
-                </p>
-              </InfoBox1>
-              </StyledLink>
-            </td>
-          </tr>
-        </table>
+      <div className="subproject-grid">
+        <a href="https://github.com/Miranviraj/TAVOLA-Table_reservation" target="_blank" rel="noopener noreferrer" className="subproject-card glass">
+          <h3 className="subproject-card-title">
+            Restaurant Table Reservation System <FontAwesomeIcon icon={faHome} />
+          </h3>
+          <div className="subproject-card-desc">
+            <p>Tavola v1.1 is a simple table reservation system created using PHP, providing a straightforward solution for table reservations. Whether it's a romantic dinner, business meeting, or casual get-together with friends, our platform allows you to reserve a table within seconds.</p>
+          </div>
+          <div className="subproject-card-link">
+            View on GitHub <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+          </div>
+        </a>
       </div>
     </div>
-    </div>
-    </InfoContainer>
   );
-};
-
-export default Php;
+}

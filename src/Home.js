@@ -1,273 +1,219 @@
-import React, { useEffect, useRef } from "react";
-import styled, { ThemeProvider } from "styled-components";
-import profilePicture from "./Images/profile.png";
-import { useNavigate } from "react-router-dom";
-import gsap from "gsap";
-import "./App.css";
+import React, { useRef, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import profilePicture from './Images/profile.png';
+import './Home.css';
 
-const HomeContainer = styled.div`
-  display: flex;
-  background: ${(p) => p.theme.HomeGradient};
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 80vh;
-  width: min(900px, 90%);
-  text-align: center;
-  overflow: hidden;
-  border-radius: 20px;
-  padding: 48px 32px;
-  gap: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
-`;
+gsap.registerPlugin(useGSAP);
 
-const ProfilePicture = styled.img`
-  width: 300px;
-  height: 800px;
-  object-fit: cover;
-  filter: ${(p) => p.theme.dsColor};
-  transform-origin: center;
-  cursor: default;
-
-  @media (max-width: 480px) {
-    width: 120px;
-    height: 120px;
-  }
-`;
-
-const PageCenter = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 100vh;
-  width: 100%;
-  max-width: 1200px;
-  padding: 40px;
-  box-sizing: border-box;
-  margin: 0 auto;
-`;
-
-const ProfilePicContainer = styled.div`
-  width: 300px;
-  height: 800px;
-  margin-top: 0px;
-  overflow: hidden;
-  flex-shrink: 0;
-`;
-
-const Heading = styled.h1`
-  color: ${(p) => p.theme.textColor};
-  font-size: 44px;
-  margin: 6px 0 0;
-  letter-spacing: 1px;
-  font-weight: 700;
-  font-family: "Segoe UI", Roboto, system-ui, -apple-system;
-
-  span {
-    display: inline-block;
-    will-change: transform, opacity;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 28px;
-  }
-  @media (max-width: 480px) {
-    font-size: 20px;
-  }
-`;
-
-const Sub = styled.h2`
-  color: ${(p) => p.theme.textColor};
-  font-size: 18px;
-  margin: 8px 0;
-  font-weight: 600;
-`;
-
-const Paragraph = styled.p`
-  color: ${(p) => p.theme.textColor};
-  max-width: 760px;
-  margin: 6px 0;
-  line-height: 1.45;
-`;
-
-const SlidingWordsContainer = styled.div`
-  margin: 12px 0;
-  height: 36px;
-  overflow: hidden;
-  position: relative;
-  width: auto;
-  min-width: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const SlidingWord = styled.div`
-  font-size: 20px;
-  background: ${(p) => p.theme.textGradient};
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 700;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  gap: 16px;
-  margin-top: 8px;
-`;
-
-const Button = styled.button`
-  padding: 10px 18px;
-  border: none;
-  border-radius: 8px;
-  background-color: ${(p) => p.theme.buttonBackground};
-  color: ${(p) => p.theme.buttonFontColor};
-  cursor: pointer;
-  font-weight: 700;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-  transform-origin: center;
-  outline: none;
-`;
-
-export default function Home({ isDarkMode, darkTheme, lightTheme }) {
+export default function Home() {
   const navigate = useNavigate();
-  const profileRef = useRef(null);
-  const headingRef = useRef(null);
-  const paragraphRefs = useRef([]);
-  const buttonRefs = useRef([]);
-  const wordRef = useRef(null);
-  const indexRef = useRef(0);
-  const words = ["Developer", "Designer", "Creator", "Engineer", "Problem Solver"];
-  const swapIntervalRef = useRef(null);
+  const containerRef = useRef(null);
+  const subtitleRef = useRef(null);
+  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
 
-  // helper to collect refs in arrays
-  const addToRefs = (refArray) => (el) => {
-    if (el && !refArray.current.includes(el)) refArray.current.push(el);
-  };
+  const handleMouseMove = (e) => {
+    const x = (e.clientX / window.innerWidth) * 100;
+    const y = (e.clientY / window.innerHeight) * 100;
+    setMousePos({ x, y });
 
-  useEffect(() => {
-    const headingEl = headingRef.current;
-    const headingText = headingEl?.textContent?.trim() || "";
-    
-    // Copy refs to local variables for cleanup
-    const profileElement = profileRef.current;
-    const paragraphElements = [...paragraphRefs.current];
-    const buttonElements = [...buttonRefs.current];
-    const wordElement = wordRef.current;
-    
-    if (headingEl) {
-      headingEl.textContent = "";
-      const chars = Array.from(headingText);
-      chars.forEach((ch) => {
-        const span = document.createElement("span");
-        span.textContent = ch === " " ? "\u00A0" : ch;
-        headingEl.appendChild(span);
+    // Magnetic effect on the image
+    const imageWrapper = document.querySelector('.hero-image-wrapper');
+    if (imageWrapper) {
+      const rect = imageWrapper.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const distX = (e.clientX - centerX) / 20;
+      const distY = (e.clientY - centerY) / 20;
+
+      gsap.to(imageWrapper, {
+        x: distX,
+        y: distY,
+        rotateX: -distY / 2,
+        rotateY: distX / 2,
+        duration: 0.5,
+        ease: 'power2.out'
       });
     }
+  };
 
-    if (wordElement) {
-      wordElement.textContent = words[0];
-      const swapWord = () => {
-        if (wordRef.current) {
-          gsap.to(wordRef.current, {
-            y: -20,
-            opacity: 0,
-            duration: 0.35,
-            ease: "power2.in",
-            onComplete: () => {
-              if (wordRef.current) {
-                indexRef.current = (indexRef.current + 1) % words.length;
-                wordRef.current.textContent = words[indexRef.current];
-                gsap.fromTo(
-                  wordRef.current,
-                  { y: 20, opacity: 0 },
-                  { y: 0, opacity: 1, duration: 0.45, ease: "power2.out" }
-                );
-              }
-            },
-          });
-        }
-      };
-      swapIntervalRef.current = setInterval(swapWord, 2200);
+  const handleMouseLeaveGlobal = () => {
+    const imageWrapper = document.querySelector('.hero-image-wrapper');
+    if (imageWrapper) {
+      gsap.to(imageWrapper, {
+        x: 0,
+        y: 0,
+        rotateX: 0,
+        rotateY: 0,
+        duration: 1,
+        ease: 'elastic.out(1, 0.5)'
+      });
     }
-
-    return () => {
-      if (swapIntervalRef.current) clearInterval(swapIntervalRef.current);
-      gsap.killTweensOf([
-        profileElement,
-        headingEl,
-        ...paragraphElements,
-        ...buttonElements,
-        wordElement,
-      ]);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleBtnEnter = (idx) => {
-    const el = buttonRefs.current[idx];
-    if (!el) return;
-    gsap.to(el, { scale: 1.04, y: -4, duration: 0.15, ease: "power2.out" });
-  };
-  
-  const handleBtnLeave = (idx) => {
-    const el = buttonRefs.current[idx];
-    if (!el) return;
-    gsap.to(el, { scale: 1, y: 0, duration: 0.18, ease: "power2.out" });
   };
 
-  // Select theme based on isDarkMode prop
-  const selectedTheme = isDarkMode ? darkTheme : lightTheme;
+  useGSAP(() => {
+    const tl = gsap.timeline();
+
+    // Background Orbs Floating
+    gsap.to('.glow-orb', {
+      y: 'random(-50, 50)',
+      x: 'random(-50, 50)',
+      duration: 8,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut',
+      stagger: 0.5
+    });
+
+    // Custom Scramble Effect
+    const chars = '!<>-_\\\\/[]{}—=+*^?#________';
+    const text = 'FULL-STACK DEVELOPER';
+    let frame = 0;
+    const scrambleObj = { value: 0 };
+
+    tl.to(scrambleObj, {
+      value: text.length,
+      duration: 1.5,
+      ease: 'power2.out',
+      onUpdate: () => {
+        if (subtitleRef.current) {
+          const currentLength = Math.floor(scrambleObj.value);
+          let scrambled = text.substring(0, currentLength);
+          for (let i = currentLength; i < text.length; i++) {
+            scrambled += chars[Math.floor(Math.random() * chars.length)];
+          }
+          subtitleRef.current.innerText = scrambled;
+        }
+      }
+    });
+
+    // Hero Text Entrance
+    tl.fromTo('.hero-title-line',
+      { y: 150, opacity: 0, rotateZ: 5 },
+      { y: 0, opacity: 1, rotateZ: 0, duration: 1.2, stagger: 0.15, ease: 'power4.out', clipPath: 'inset(0% 0% 0% 0%)' },
+      '-=1'
+    )
+      .fromTo('.hero-description',
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: 'power3.out' },
+        '-=0.8'
+      )
+      .fromTo('.btn-group',
+        { y: 30, opacity: 0, scale: 0.9 },
+        { y: 0, opacity: 1, scale: 1, duration: 1, ease: 'back.out(1.5)' },
+        '-=0.8'
+      )
+      .fromTo('.hero-image-wrapper',
+        { scale: 0.8, opacity: 0, rotation: -10, y: 100 },
+        { scale: 1, opacity: 1, rotation: 0, y: 0, duration: 1.5, ease: 'elastic.out(1, 0.7)' },
+        '-=1.2'
+      )
+      .fromTo('.floating-badge',
+        { scale: 0, opacity: 0, rotation: 45 },
+        { scale: 1, opacity: 1, rotation: 0, duration: 1.2, stagger: 0.2, ease: 'back.out(1.7)' },
+        '-=1'
+      )
+      .fromTo('.scroll-indicator',
+        { opacity: 0, y: -20 },
+        { opacity: 1, y: 0, duration: 1, ease: 'power3.out' },
+        '-=0.5'
+      );
+
+    gsap.to('.badge-1', { y: -15, duration: 2.5, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+    gsap.to('.badge-2', { y: 15, duration: 3, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 0.5 });
+
+  }, { scope: containerRef });
+
+  const handleMouseEnter = (e) => {
+    gsap.to(e.currentTarget, { scale: 1.05, duration: 0.3, ease: 'power2.out' });
+  };
+
+  const handleMouseLeave = (e) => {
+    gsap.to(e.currentTarget, { scale: 1, duration: 0.3, ease: 'power2.out' });
+  };
 
   return (
-    <ThemeProvider theme={selectedTheme}>
-      <PageCenter>
-        <ProfilePicContainer>
-          <ProfilePicture ref={profileRef} src={profilePicture} alt="Profile" />
-        </ProfilePicContainer>
-        <HomeContainer>
-          <Heading ref={headingRef}>Hi, I'm Miran Virajith Devinda</Heading>
+    <div className="home-container" ref={containerRef} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeaveGlobal}>
+      <div
+        className="interactive-bg"
+        style={{
+          background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(79, 70, 229, 0.25) 0%, transparent 60%)`
+        }}
+      ></div>
+      <div className="glow-orb orb-1"></div>
+      <div className="glow-orb orb-2"></div>
 
-          <Sub ref={addToRefs(paragraphRefs)}>Full-Stack Developer</Sub>
+      <div className="container hero-content">
+        <div className="hero-text">
+          <div className="hero-subtitle">
+            <span className="accent-dot"></span> <span ref={subtitleRef}></span>
+          </div>
 
-          <Paragraph ref={addToRefs(paragraphRefs)}>
-            A dedicated software engineer with a flair for web and mobile applications development.
-          </Paragraph>
+          <h1 className="hero-title">
+            <div className="hero-title-line-wrapper">
+              <span className="hero-title-line">Hi, I'm</span>
+            </div>
+            <div className="hero-title-line-wrapper">
+              <span className="hero-title-line text-gradient">Miran Virajith</span>
+            </div>
+            <div className="hero-title-line-wrapper">
+              <span className="hero-title-line text-stroke interactive">Devinda</span>
+            </div>
+          </h1>
 
-          <Paragraph ref={addToRefs(paragraphRefs)}>
-            Crafting cutting-edge and scalable applications that drive innovation and efficiency.
-          </Paragraph>
+          <p className="hero-description">
+            A dedicated software engineer crafting cutting-edge, scalable applications
+            that drive innovation and efficiency with a flair for web & mobile development.
+          </p>
 
-          <SlidingWordsContainer>
-            <SlidingWord ref={wordRef}>Developer</SlidingWord>
-          </SlidingWordsContainer>
-
-          <ButtonContainer>
-            <Button
-              ref={(el) => {
-                if (el && !buttonRefs.current.includes(el)) buttonRefs.current.push(el);
-              }}
-              onMouseEnter={() => handleBtnEnter(0)}
-              onMouseLeave={() => handleBtnLeave(0)}
-              onClick={() => navigate("/projects")}
+          <div className="btn-group">
+            <button
+              className="btn btn-primary interactive"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => navigate('/projects')}
             >
-              View Projects
-            </Button>
-
-            <Button
-              ref={(el) => {
-                if (el && !buttonRefs.current.includes(el)) buttonRefs.current.push(el);
-              }}
-              onMouseEnter={() => handleBtnEnter(1)}
-              onMouseLeave={() => handleBtnLeave(1)}
-              onClick={() => navigate("/contact")}
+              Explore Work
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: '8px' }}><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+            <button
+              className="btn btn-secondary glass interactive"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => navigate('/contact')}
             >
               Contact Me
-            </Button>
-          </ButtonContainer>
-        </HomeContainer>
-      </PageCenter>
-    </ThemeProvider>
+            </button>
+          </div>
+        </div>
+
+        <div className="hero-visual">
+          <div className="hero-image-wrapper glass interactive">
+            <img src={profilePicture} alt="Miran Virajith Devinda" className="hero-image" />
+            <div className="image-overlay"></div>
+
+            <div className="floating-badge badge-1 glass">
+              <span className="badge-number">3+</span>
+              <span className="badge-text">Years<br />Experience</span>
+            </div>
+
+            <div className="floating-badge badge-2 glass">
+              <span className="badge-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+              </span>
+              <span className="badge-text">Full Stack<br />Mastery</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="scroll-indicator">
+        <div className="mouse">
+          <div className="wheel"></div>
+        </div>
+        <span className="scroll-text">Scroll Down</span>
+      </div>
+    </div>
   );
 }

@@ -1,203 +1,160 @@
-import React from 'react';
-import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useRef } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import './Contact.css';
 
-import { useState } from 'react';
-import { useEffect } from 'react';
+gsap.registerPlugin(useGSAP);
 
-import {  faMailBulk} from '@fortawesome/free-solid-svg-icons';
-import { faLinkedin,  faWhatsapp, faFacebook } from '@fortawesome/free-brands-svg-icons';
-import './App.css';
-import { faContactBook } from '@fortawesome/free-solid-svg-icons/faContactBook';
-import { Heading } from 'lucide-react';
-
-
-const InfoContainer = styled.div`
-   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100vw;
-  text-align: center;
-  overflow: hidden;
-`;
-
-const InfoBox1 = styled.div`
-  background-color: ${(props) => props.theme.infoBoxBackground}; 
-  color: ${(props) => props.theme.color};
-  padding: 20px;
-  border: 3px solid ${(props) => props.theme.color}; 
-  border-radius: 10px;
-  width: 500px;
-  height: 470px;
-  box-shadow: 0 4px 8px rgba(227, 210, 210, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center; 
-  margin-top:-150px;
-
-  @media (max-width: 768px) {
-    width: 300px;
-    height: 400px;
-    padding: 15px;
-  }
-
-  @media (max-width: 480px) {
-    width: 200px;
-    height: 300px;
-    padding: 10px;
-  }
-`;
-
-
-
-const Button1 = styled.div`
-  background-color: ${(props) => props.theme.Button1Background}; 
-  color: ${(props) => props.theme.color};
-  padding: 20px;
- 
-  border-radius: 10px;
-  width: 450px;
-  height: 20px;
-  gap: 10px;
-  background-position: center;
-  justify-content: center;
-  cursor:pointer;
-  margin-top: -2%;
-  box-shadow: 0 4px 8px ${(props) => props.theme.scolor};
-  margin-bottom: 10px; /* Added gap between buttons */
-  display: flex;
-  align-items: center; 
-  justify-content: center; 
+export default function Contact() {
+  const containerRef = useRef(null);
   
-   &:hover {
-    transform: scale(1.1);
-  }
-
-
-  @media (max-width: 768px) {
-   margin-top: 4%;
-    width: 300px;
-    height: 15px;
-    padding: 12px;
-    gap:2px;
-  }
-
-   &:hover {
-    transform: scale(1.1);
-  }
-
-
-  @media (max-width: 480px) {
-   margin-top: 4%;
-    width: 200px;
-    height: 10px;
-    padding: 10px;
-     gap:2px;
-  }
-
-   &:hover {
-    transform: scale(1.1);
-  }
-
-`;
-
-
-const Headingc = styled.h1`
-color: ${(props) => props.theme.textColor};
-transition: color 0.3s ease;
-font-size: 40px;
- font-family: Copperplate Gothic Light;
-
-  @media (max-width: 768px) {
-   
-
-   
-      font-size: 30px;
-    }
- 
-
-  @media (max-width: 480px) {
-  font-size: 20px;
+  useGSAP(() => {
+    const tl = gsap.timeline();
     
+    tl.fromTo('.contact-wrapper',
+      { y: 100, opacity: 0, rotateX: 10 },
+      { y: 0, opacity: 1, rotateX: 0, duration: 1.2, ease: 'power4.out' }
+    )
+    .fromTo('.contact-header', 
+      { y: -30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, ease: 'power3.out' },
+      '-=0.8'
+    )
+    .fromTo('.form-group', 
+      { x: -50, opacity: 0 },
+      { x: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out' },
+      '-=0.6'
+    )
+    .fromTo('.contact-info-item', 
+      { x: 50, opacity: 0 },
+      { x: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out' },
+      '-=0.8'
+    );
     
-    }
-
-`;
-
-const Heading2c = styled.h1`
-color: ${(props) => props.theme.textColor};
-transition: color 0.3s ease;
-font-size: 30px;
- font-family:  serif;
-
-  @media (max-width: 768px) {
-   
-
-   
-      font-size: 20px;
-    }
- 
-
-  @media (max-width: 480px) {
-  font-size: 10px;
+    // Animate the background orb continuously
+    gsap.to('.info-bg-orb', {
+      x: 'random(-50, 50)',
+      y: 'random(-50, 50)',
+      scale: 'random(0.8, 1.2)',
+      duration: 5,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut'
+    });
     
+    // 3D subtle float for the whole wrapper on mouse move
+    const wrapper = document.querySelector('.contact-wrapper');
+    const handleWrapperMove = (e) => {
+      const rect = wrapper.getBoundingClientRect();
+      const x = (e.clientX - rect.left - rect.width / 2) / 30;
+      const y = (e.clientY - rect.top - rect.height / 2) / 30;
+      gsap.to(wrapper, { rotateY: x, rotateX: -y, duration: 0.5, ease: 'power2.out' });
+    };
+    const handleWrapperLeave = () => {
+      gsap.to(wrapper, { rotateY: 0, rotateX: 0, duration: 1, ease: 'elastic.out(1, 0.3)' });
+    };
     
-    }
+    wrapper.addEventListener('mousemove', handleWrapperMove);
+    wrapper.addEventListener('mouseleave', handleWrapperLeave);
+    
+    return () => {
+      wrapper.removeEventListener('mousemove', handleWrapperMove);
+      wrapper.removeEventListener('mouseleave', handleWrapperLeave);
+    };
+  }, { scope: containerRef });
 
-`;
-
-const StyledLink = styled.a`
-  text-decoration: none; /* Remove underline */
-  color: inherit; /* Inherit text color */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Contact = () => {
-  
-
-   const [loaded, setLoaded] = useState(false);
-  
-    useEffect(() => {
-      setLoaded(true);
-    }, []);
-
- 
-  const phoneNumber = '+94716270968'; 
-  const message = 'Hello, I would like to get in touch with you!';
-  const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    
+    gsap.to(btn, {
+      scale: 0.95,
+      duration: 0.1,
+      yoyo: true,
+      repeat: 1,
+      onComplete: () => {
+        btn.innerHTML = 'Message Sent! <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+        btn.classList.add('success');
+      }
+    });
+  };
 
   return (
-
-    <InfoContainer>
- 
-    <div className="center-table">
-      <div className="table-container">
-
+    <div className="contact-section container" ref={containerRef}>
+      <div className="contact-wrapper glass">
         
-    <div className={`app-container ${loaded ? 'bounce' : ''}`}>
-        <InfoBox1>
-          <Headingc><FontAwesomeIcon icon={faContactBook} /> Contact Me</Headingc>
-          <Heading2c >Click To Contact me</Heading2c >
-          <StyledLink href="https://www.linkedin.com/in/miran-virajith-devinda-8b5094294" target="_blank" rel="noopener noreferrer">
-            <Button1>Linkedin <FontAwesomeIcon icon={faLinkedin} /></Button1>
-          </StyledLink>
-          <Button1 onClick={() => window.open('mailto:your-email@example.com', '_blank')}>E-mail <FontAwesomeIcon icon={faMailBulk} /></Button1>
-          <Button1 onClick={() => window.open(whatsappLink, '_blank')}>WhatsApp <FontAwesomeIcon icon={faWhatsapp} /></Button1>
-          <StyledLink href="https://www.facebook.com/share/16GoaocRdT/" target="_blank" rel="noopener noreferrer">
-            <Button1>Facebook <FontAwesomeIcon icon={faFacebook} /></Button1>
-          </StyledLink>
-        </InfoBox1>
+        <div className="contact-form-container">
+          <div className="contact-header">
+            <h2 className="section-title text-gradient">Let's Connect</h2>
+            <p className="section-subtitle">Have a project in mind? Let's build something extraordinary together.</p>
+          </div>
+          
+          <form className="contact-form" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <input type="text" id="name" required placeholder=" " />
+              <label htmlFor="name">Your Name</label>
+              <div className="input-border"></div>
+            </div>
+            
+            <div className="form-group">
+              <input type="email" id="email" required placeholder=" " />
+              <label htmlFor="email">Email Address</label>
+              <div className="input-border"></div>
+            </div>
+            
+            <div className="form-group">
+              <textarea id="message" required placeholder=" " rows="5"></textarea>
+              <label htmlFor="message">Message</label>
+              <div className="input-border"></div>
+            </div>
+            
+            <div className="form-group">
+              <button type="submit" className="submit-btn btn-primary">
+                Send Message
+              </button>
+            </div>
+          </form>
         </div>
+        
+        <div className="contact-info">
+          <div className="info-bg-orb"></div>
+          
+          <h3 className="info-title">Contact Information</h3>
+          
+          <div className="contact-info-list">
+            <div className="contact-info-item">
+              <div className="info-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </div>
+              <div>
+                <p className="info-label">Email</p>
+                <p className="info-value">miranvirajith@example.com</p>
+              </div>
+            </div>
+            
+            <div className="contact-info-item">
+              <div className="info-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              </div>
+              <div>
+                <p className="info-label">Phone</p>
+                <p className="info-value">+1 (234) 567-890</p>
+              </div>
+            </div>
+            
+            <div className="contact-info-item">
+              <div className="info-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              </div>
+              <div>
+                <p className="info-label">Location</p>
+                <p className="info-value">Sri Lanka</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
       </div>
     </div>
- 
-    </InfoContainer>
-  
   );
-};
-
-export default Contact;
+}
