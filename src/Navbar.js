@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import './Navbar.css';
+import logoImg from './logo.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,8 +54,8 @@ const Navbar = () => {
   return (
     <header className="navbar glass" ref={navRef}>
       <div className="nav-container container">
-        <Link to="/" className="logo interactive">
-          <span className="text-accent-gradient">M</span>V
+        <Link to="/" className="logo interactive" style={{ display: 'flex', alignItems: 'center' }}>
+          <img src={logoImg} alt="MVD Logo" style={{ height: '40px', width: 'auto' }} />
         </Link>
         
         <nav className="desktop-nav">
